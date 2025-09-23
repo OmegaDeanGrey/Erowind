@@ -63,7 +63,9 @@ function Party() {
                     <p>⚔️ Strength: {member.strength}</p>
                     <p>🧠 Intelligence: {member.intelligence}</p>
                     <p>💨 Speed: {member.speed}</p>
-                    <p>❤️ HP: {member.maxHP}</p>
+                    <p>
+                      ❤️ HP: {member.currentHP} / {member.maxHP}
+                    </p>
                   </div>
                   <button
                     className="remove-button fancy-remove"

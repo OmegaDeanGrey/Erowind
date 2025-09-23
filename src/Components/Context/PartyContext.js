@@ -57,6 +57,34 @@ export const PartyProvider = ({ children }) => {
     setParty([]);
   };
 
+  // Apply damage to a member by index
+  const applyDamage = (index, amount) => {
+    setParty((prevParty) =>
+      prevParty.map((member, i) => {
+        if (i === index) {
+          let newHP = member.currentHP - amount;
+          if (newHP < 0) newHP = 0; // floor at 0
+          return { ...member, currentHP: newHP };
+        }
+        return member;
+      })
+    );
+  };
+
+  // Heal a member by index
+  const healMember = (index, amount) => {
+    setParty((prevParty) =>
+      prevParty.map((member, i) => {
+        if (i === index) {
+          let newHP = member.currentHP + amount;
+          if (newHP > member.maxHP) newHP = member.maxHP; // cap at max
+          return { ...member, currentHP: newHP };
+        }
+        return member;
+      })
+    );
+  };
+
   return (
     <PartyContext.Provider
       value={{
@@ -67,6 +95,8 @@ export const PartyProvider = ({ children }) => {
         addToParty,
         removeFromParty,
         clearParty,
+        applyDamage, // <-- add
+        healMember,
         fullParty,
         setFullParty,
         characterName,

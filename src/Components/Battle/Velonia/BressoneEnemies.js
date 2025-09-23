@@ -17,7 +17,11 @@ const createGoblin = (id = 0) => ({
     target: "singleEnemy",
     damageType: "physical",
     perform: ({ attacker, targets }) => {
-      const target = targets[Math.floor(Math.random() * targets.length)];
+      const aliveTargets = targets.filter((t) => t.currentHP > 0);
+      if (aliveTargets.length === 0) return null;
+      const target =
+        aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
+
       const damage = Math.max(1, attacker.strength - target.defense);
       return {
         targetId: target.id,
@@ -46,7 +50,11 @@ const createOrc = (id = 0) => ({
     target: "singleEnemy",
     damageType: "physical",
     perform: ({ attacker, targets }) => {
-      const target = targets[Math.floor(Math.random() * targets.length)];
+      const aliveTargets = targets.filter((t) => t.currentHP > 0);
+      if (aliveTargets.length === 0) return null;
+      const target =
+        aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
+
       const damage = Math.max(1, attacker.strength - target.defense);
       return {
         targetId: target.id,
@@ -75,7 +83,11 @@ const createSpriggan = (id = 0) => ({
     target: "singleEnemy",
     damageType: "physical",
     perform: ({ attacker, targets }) => {
-      const target = targets[Math.floor(Math.random() * targets.length)];
+      const aliveTargets = targets.filter((t) => t.currentHP > 0);
+      if (aliveTargets.length === 0) return null;
+      const target =
+        aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
+
       const damage = Math.max(1, attacker.strength - target.defense);
       return {
         targetId: target.id,
@@ -104,7 +116,11 @@ const createNightMare = (id = 0) => ({
     target: "singleEnemy",
     damageType: "physical",
     perform: ({ attacker, targets }) => {
-      const target = targets[Math.floor(Math.random() * targets.length)];
+      const aliveTargets = targets.filter((t) => t.currentHP > 0);
+      if (aliveTargets.length === 0) return null;
+      const target =
+        aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
+
       const damage = Math.max(1, attacker.strength);
       return {
         targetId: target.id,

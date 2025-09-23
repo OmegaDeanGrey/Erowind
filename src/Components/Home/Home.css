@@ -121,3 +121,11 @@
   font-size: 90px;
   color: rgb(64, 27, 167);
 }
+
+.App {
+  transition: background-color 1s ease;
+}
+
+.fade-out {
+  background-color: black !important;
+}

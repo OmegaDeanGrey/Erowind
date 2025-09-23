@@ -126,13 +126,25 @@ function Character() {
 
   // --- filter out unwanted keys from main stats list ---
   const displayStats = Object.entries(characterStats).filter(
-    ([key]) => !["HeroPowerLevel", "BattlePower", "role", "Icon"].includes(key)
+    ([key]) =>
+      !["HeroPowerLevel", "BattlePower", "role", "Portrait"].includes(key)
   );
 
   return (
     <div id="CharacterContainer">
       <div id="BgCharacter">
         <h1 id="CharacterTitle">{characterStats.name}</h1>
+
+        {/* Portrait display */}
+        {/* {characterStats.Portrait && (
+          <div style={{ marginBottom: "20px" }}>
+            <img
+              src={characterStats.Portrait}
+              alt="Hero Portrait"
+              style={{ width: "200px", borderRadius: "10px" }}
+            />
+          </div>
+        )} */}
 
         <div id="characterinsides">
           <h2 className="statslabel">Character Stats</h2>
@@ -161,17 +173,6 @@ function Character() {
         )}
 
         <h2 id="CYT">Complete Your Trials to Finalize Character Stats</h2>
-
-        {/* <div>
-          <h2 className="statslabel">Attributes</h2>
-          <ul className="AttLists">
-            <li className="AttributeItems">Int: {quizStats.Intelligence}</li>
-            <li className="AttributeItems">Str: {strengthResults}</li>
-            <li className="AttributeItems">Speed: {quizStats.Speed}</li>
-            <li className="AttributeItems">Def: {quizStats.Defense}</li>
-            <li className="AttributeItems">HP: {quizStats.HP}</li>
-          </ul>
-        </div> */}
       </div>
     </div>
   );

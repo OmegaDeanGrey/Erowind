@@ -10,7 +10,7 @@ function CounselRoom() {
 
   const dialogue = [
     {
-      text: "Welcome to the Kingdom behind the Horran Falls...",
+      text: "Welcome to the Kingdom Under the Falls...",
       name: "Ahn DaQuin",
       portrait: "/DwarfKing.png",
     },
@@ -35,18 +35,27 @@ function CounselRoom() {
       portrait: "/DwarfKing.png",
       choices: [
         { label: "I am with you!", next: 5 },
-        { label: "I do not yet trust you.", next: 5 },
+        { label: "I do not yet trust you.", next: 6 },
       ],
     },
     { text: "Prepare for battle!", name: "Hero", portrait: "/HeroIcon.png" },
+    {
+      text: "Let's go Gather some information",
+      name: "Hero",
+      portrait: "/HeroIcon.png",
+    },
   ];
 
   return (
-    <DialogRoom
-      dialogue={dialogue}
-      background="/Dvashold.png"
-      onComplete={() => navigate("/Dvasheld")}
-    />
+    <div id="CounselRoomOut">
+      <div id="CRTitle">Counsel Room</div>
+
+      <DialogRoom
+        dialogue={dialogue}
+        background="/Dvashold.png"
+        onComplete={() => navigate("/Dvasheld")}
+      />
+    </div>
   );
 }
 

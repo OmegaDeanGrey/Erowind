@@ -85,7 +85,7 @@ function Dvasheld() {
           </ul>
 
           {showMenu && (
-            <div className="menu">
+            <div className="menu2">
               <ul>
                 {menuType === "team" &&
                   party.map((member, index) => (
@@ -100,7 +100,11 @@ function Dvasheld() {
                 {menuType === "dwarves" &&
                   ["Tordin", "Dein Biali", "Dvaka", "Ohn Gondlin", "Rhoka"].map(
                     (dwarf, index) => (
-                      <li key={index} onClick={() => handleClick(dwarf, index)}>
+                      <li
+                        key={index}
+                        onClick={() => handleClick(dwarf, index)}
+                        id="dwarfmenu"
+                      >
                         {dwarf}
                       </li>
                     )

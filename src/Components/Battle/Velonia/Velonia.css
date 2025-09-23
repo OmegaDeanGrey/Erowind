@@ -100,6 +100,37 @@
   border-top-left-radius: 0px;
 }
 
+.menu2 ul {
+  list-style: none;
+  width: 250px;
+  position: absolute;
+  left: 250px;
+  font-size: 25px;
+  font-weight: bolder;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-shadow: 4px 4px 15px rgb(243, 243, 145);
+  margin: 35px;
+  margin-top: -300px;
+  padding: 9px;
+  background-color: rgba(230, 194, 104, 0.564);
+  color: rgb(53, 41, 4);
+  border: 4px rgb(243, 186, 70) solid;
+  border-radius: 30px;
+  border-top-left-radius: 0%;
+  box-shadow: 5px 6px 12px black, 5px 6px 12px rgb(64, 56, 3) inset;
+}
+
+.menu2 ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menu2 ul li:hover {
+  background: #f1d181;
+  border-radius: 30px;
+  border-top-left-radius: 0px;
+}
+
 #bbreturn {
   font-size: 15px;
   font-weight: bolder;
@@ -145,15 +176,128 @@
   font-size: 25px;
   font-weight: bolder;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  text-shadow: 4px 4px 15px rgb(4, 4, 4);
+  text-shadow: 4px 4px 15px white;
   margin: 35px;
   margin-left: -10px;
   padding: 9px;
-  background-color: rgb(105, 177, 154);
-  color: rgb(149, 237, 209);
-  border: 4px rgb(231, 241, 231) solid;
+  background-color: rgb(242, 194, 152);
+  color: rgb(121, 80, 4);
+  border: 7px rgb(205, 119, 21) solid;
   border-radius: 30px;
   border-top-left-radius: 0%;
-  box-shadow: 5px 6px 12px rgb(158, 154, 154),
+  box-shadow: 5px 6px 12px rgb(245, 244, 244),
     5px 6px 12px rgb(31, 79, 55) inset;
+}
+
+#CRTitle {
+  position: absolute;
+  color: orange;
+  margin: 100px;
+  font-size: 50px;
+  font-weight: bolder;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  border-bottom: 7px orange double;
+}
+
+#WesternWoodout {
+  background-image: url("/public/WesterWood.JPG");
+  background-repeat: no-repeat;
+  background-size: 2220px 1070px;
+  margin-top: -15px;
+  height: 89vh;
+}
+
+.lnbutt3 {
+  font-size: 25px;
+  font-weight: bolder;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-shadow: 4px 4px 15px white;
+  margin: 35px;
+  margin-left: -10px;
+  padding: 9px;
+  background-color: rgb(12, 85, 48);
+  color: rgb(184, 199, 187);
+  border: 7px rgb(21, 205, 85) solid;
+  border-radius: 30px;
+  border-top-left-radius: 0%;
+  box-shadow: 5px 6px 12px rgb(245, 244, 244),
+    5px 6px 12px rgb(31, 79, 55) inset;
+}
+
+.lnbutt3:hover {
+  font-size: 25px;
+  font-weight: bolder;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-shadow: 4px 4px 15px white;
+  margin: 35px;
+  margin-left: -10px;
+  padding: 9px;
+  background-color: rgb(9, 138, 73);
+  color: rgb(248, 251, 249);
+  border: 7px rgb(6, 93, 36) solid;
+  border-radius: 30px;
+  border-top-left-radius: 0%;
+  box-shadow: 5px 6px 12px rgb(245, 244, 244),
+    5px 6px 12px rgb(31, 79, 55) inset;
+}
+
+#Sableheimout {
+  background-image: url("/public/Sableheim.png");
+  background-repeat: no-repeat;
+  background-size: 2220px 1070px;
+  margin-top: -15px;
+  height: 89vh;
+}
+
+.lnbutt4 {
+  font-size: 25px;
+  font-weight: bolder;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-shadow: 4px 4px 15px white;
+  margin: 35px;
+  margin-left: -10px;
+  padding: 9px;
+  background-color: rgba(85, 12, 70, 0.285);
+  color: rgb(240, 165, 240);
+  border: 7px rgb(243, 237, 241) solid;
+  border-radius: 30px;
+  border-top-left-radius: 0%;
+  box-shadow: 5px 6px 12px rgb(245, 244, 244),
+    5px 6px 12px rgb(31, 79, 55) inset;
+}
+
+.lnbutt4:hover {
+  font-size: 25px;
+  font-weight: bolder;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-shadow: 4px 4px 15px white;
+  margin: 35px;
+  margin-left: -10px;
+  padding: 9px;
+  background-color: rgb(9, 138, 73);
+  color: rgb(248, 251, 249);
+  border: 7px rgb(6, 93, 36) solid;
+  border-radius: 30px;
+  border-top-left-radius: 0%;
+  box-shadow: 5px 6px 12px rgb(245, 244, 244),
+    5px 6px 12px rgb(31, 79, 55) inset;
+}
+
+#sableheimtitle {
+  margin-top: 60px;
+  margin-left: 60px;
+  font-size: 60px;
+  color: rgb(245, 21, 234);
+  font-family: "Gill Sans";
+  text-shadow: 2px 3px 13px rgb(246, 247, 246);
+}
+
+#sableheimsubtitle {
+  color: rgb(245, 78, 209);
+  margin-top: -20px;
+  margin-left: 60px;
+
+  font-family: "Gill Sans";
+  text-shadow: 2px 3px 13px rgb(247, 200, 239);
+  font-size: 30px;
 }

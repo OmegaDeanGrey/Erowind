@@ -65,7 +65,7 @@ export function fighterSlashAction(user, allies, enemies) {
 
   if (target) {
     // Physical damage: user.strength - target.defense
-    const rawDamage = user.strength - target.defense;
+    const rawDamage = (user.strength - target.defense) / 2;
     const damage = Math.max(1, rawDamage); // At least 1 damage
 
     logs.push(
@@ -108,7 +108,7 @@ export function clericHealingHandsAction(user, allies, enemies) {
       : backRowEnemies[Math.floor(Math.random() * backRowEnemies.length)];
 
     if (target) {
-      const damage = Math.max(1, user.strength - (target.defense ?? 0));
+      const damage = Math.max(1, (user.strength - (target.defense ?? 0)) / 2);
       logs.push(
         `${user.name} swings their mace at ${target.name} for ${damage} damage!`
       );
@@ -134,7 +134,7 @@ export function clericHealingHandsAction(user, allies, enemies) {
 
   const maxHP = target.maxHP ?? target.HP ?? 1;
   const currentHP = target.currentHP ?? 0;
-  const healAmount = Math.min(user.intelligence * 2, maxHP - currentHP);
+  const healAmount = Math.min(user.intelligence / 2, maxHP - currentHP);
 
   if (healAmount > 0) {
     logs.push(
@@ -178,7 +178,7 @@ export function archerVolleyAction(user, allies, enemies) {
   }
 
   const target = validTargets[Math.floor(Math.random() * validTargets.length)];
-  const baseDamage = Math.floor(user.strength * 0.8) - target.defense;
+  const baseDamage = Math.floor(user.strength * 0.7) - target.defense;
   const damage = Math.max(1, baseDamage);
 
   logs.push(
@@ -217,7 +217,7 @@ export function summonerFamiliarAction(user, allies, enemies) {
     }
   }
 
-  const damagePerTarget = Math.max(1, Math.floor(user.intelligence * 1.2));
+  const damagePerTarget = Math.max(1, Math.floor(user.intelligence * 0.6));
 
   logs.push(`${user.name} summons a Familiar to attack ${numTargets} enemies!`);
 
@@ -253,7 +253,7 @@ export function mageSpellcastAction(user, allies, enemies) {
   const target = validTargets[Math.floor(Math.random() * validTargets.length)];
 
   // Calculate magic damage: based on user's intelligence minus target's defense
-  const rawDamage = user.intelligence * 1.5 - target.defense;
+  const rawDamage = user.intelligence - target.defense;
   const damage = Math.max(1, Math.floor(rawDamage)); // At least 1 damage
 
   logs.push(
@@ -289,7 +289,7 @@ export function rogueBackstabAction(user, allies, enemies) {
   const isCrit = Math.random() < critChance;
 
   // Damage calculation
-  const baseDamage = user.strength - target.defense;
+  const baseDamage = (user.strength - target.defense) / 2;
   const rawDamage = isCrit ? baseDamage * 2 : baseDamage;
   const damage = Math.max(1, Math.floor(rawDamage)); // Always at least 1
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Power.css";
+import { generateHeroImage } from "../Utility/HeroImageGenerator.js";
 
 const Start = ({ onCompletion, onSaveAndQuit }) => {
   const steps = [
@@ -124,6 +125,7 @@ const Start = ({ onCompletion, onSaveAndQuit }) => {
   const [currentChoices, setCurrentChoices] = useState(steps[0].choices);
   const [isNameStep, setIsNameStep] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
+  const [loadingImage, setLoadingImage] = useState(false);
 
   const navigate = useNavigate("");
 
@@ -140,12 +142,16 @@ const Start = ({ onCompletion, onSaveAndQuit }) => {
     localStorage.setItem("characterStats", JSON.stringify(characterStats));
   };
 
-  const handleChoiceClick = (choice) => {
+  const handleChoiceClick = async (choice) => {
     const step = steps[currentStepIndex];
-    setCharacterStats((prevStats) => ({
-      ...prevStats,
+
+    // prepare updated stats
+    const updatedStats = {
+      ...characterStats,
       [step.label]: choice.label,
-    }));
+    };
+
+    setCharacterStats(updatedStats);
 
     if (choice.related && choice.related.length > 0) {
       setCurrentChoices(choice.related);
@@ -158,6 +164,20 @@ const Start = ({ onCompletion, onSaveAndQuit }) => {
         setCurrentChoices([]);
         setIsComplete(true);
         localStorage.setItem("shopEnabled", "true");
+
+        setLoadingImage(true);
+        const imageUrl = await generateHeroImage({
+          race: updatedStats.Race,
+          heroClass: updatedStats.Class,
+        });
+
+        setCharacterStats((prev) => {
+          const newStats = { ...prev, Portrait: imageUrl };
+          localStorage.setItem("characterStats", JSON.stringify(newStats));
+          return newStats;
+        });
+
+        setLoadingImage(false);
       }
     }
   };
@@ -188,6 +208,19 @@ const Start = ({ onCompletion, onSaveAndQuit }) => {
               </li>
             ))}
           </ul>
+
+          {loadingImage ? (
+            <p>Generating portrait...</p>
+          ) : (
+            characterStats.Portrait && (
+              <img
+                src={characterStats.Portrait}
+                alt="Hero Portrait"
+                style={{ width: "200px", borderRadius: "10px" }}
+              />
+            )
+          )}
+
           <div>
             <button
               id="ReadyButton"

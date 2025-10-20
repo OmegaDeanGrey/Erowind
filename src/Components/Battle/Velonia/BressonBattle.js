@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import BressoneEnemies from "../Velonia/BressoneEnemies";
+import BressoneSpoils from "./BressoneSpoils";
 import BattleManager from "../BattleManager";
 import { useNavigate } from "react-router-dom";
 import "../Battle.css";
@@ -7,46 +8,82 @@ import DialogBox from "../../Utility/DialogBox";
 
 function BressoneBattle() {
   const [enemies, setEnemies] = useState([]);
-  const [phase, setPhase] = useState("dialog1"); // dialog1 -> dialog2 -> battleIntro -> transition -> battle -> complete
+  const [phase, setPhase] = useState("dialog1"); // dialog1 -> dialog2 -> battleIntro -> transition -> battle -> dialog3 -> complete
   const [dialogIndex, setDialogIndex] = useState(0);
   const [dialogIndex2, setDialogIndex2] = useState(0);
+  const [dialogIndex3, setDialogIndex3] = useState(0);
+
   const [transitioning, setTransitioning] = useState(false);
   const [battleResult, setBattleResult] = useState(null);
   const navigate = useNavigate();
+
   const heroData = JSON.parse(localStorage.getItem("finalCharacter"));
   const mainName = heroData?.Name || "Hero";
 
-  const dialogue1 = [
-    {
-      text: "The winds outside Bressone carry whispers of danger...",
-      name: "Narrator",
-    },
-    {
-      text: "A group of monsters lurks beyond the city walls.",
-      name: "Narrator",
-    },
-    {
-      text: "Your party steels themselves for the coming fight.",
-      name: "Narrator",
-    },
-    {
-      text: "You are too puny to defeat us!",
-      name: "Monster",
-      portrait: "/GoblinLeader.png",
-    },
-    { text: "Prepare for battle!", name: mainName, portrait: "/Hero.png" },
-  ];
+  const firstBattleDone =
+    JSON.parse(localStorage.getItem("bressoneFirstBattleDone")) || false;
+
+  // ---- Dialogues ----
+  const dialogue1 = !firstBattleDone
+    ? [
+        {
+          text: "The Goblin King awaits your challenge!",
+          name: "Ahn DaQuin",
+          portrait: "/DwarfKing.png",
+        },
+        {
+          text: "Your party steels themselves for the fight of their lives.",
+          name: "Narrator",
+        },
+        {
+          text: "You are too puny to defeat us!",
+          name: "O Hra",
+          portrait: "/GoblinKing.png",
+        },
+        { text: "Prepare for battle!", name: mainName, portrait: "/Hero.png" },
+      ]
+    : [
+        {
+          text: "The winds outside Bressone carry whispers of danger...",
+          name: "Narrator",
+        },
+        {
+          text: "A group of monsters lurks beyond the city walls.",
+          name: "Narrator",
+        },
+        {
+          text: "Your party steels themselves for the coming fight.",
+          name: "Narrator",
+        },
+        {
+          text: "We will avenge our king!",
+          name: "Goblin",
+          portrait: "/GoblinLeader.png",
+        },
+        { text: "Prepare for battle!", name: mainName, portrait: "/Hero.png" },
+      ];
 
   const dialogue2 = [
     { text: "Outside the town walls...", name: mainName },
     { text: "We shall defend our home...", name: mainName },
     {
-      text: "You are too puny to defeat us!",
-      name: "Monster",
-      portrait: "/GoblinLeader.png",
+      text: "Darkess will triumph!",
+      name: "O Hra",
+      portrait: "/GoblinKing.png",
     },
   ];
 
+  const dialogue3 = [
+    { text: "You have defeated the Goblin King!", name: mainName },
+    {
+      text: "The Goblin King Crown is now yours.",
+      name: "Ahn DaQuin",
+      image: "/GKC.png",
+    },
+    { text: "Our city is safe thanks to you!", name: mainName },
+  ];
+
+  // ---- Dialogue Navigation ----
   const nextDialog1 = () => {
     if (dialogIndex < dialogue1.length - 1) {
       setDialogIndex(dialogIndex + 1);
@@ -63,13 +100,34 @@ function BressoneBattle() {
     }
   };
 
-  // Step before transition → show battle intro screen
+  const nextDialog3 = () => {
+    if (dialogIndex3 < dialogue3.length - 1) {
+      setDialogIndex3(dialogIndex3 + 1);
+    } else {
+      setPhase("complete");
+    }
+  };
+
+  // ---- Battle Preparation ----
   const prepareBattle = () => {
-    const generatedEnemies = BressoneEnemies.randomEnemies(3);
+    let generatedEnemies;
+
+    if (!firstBattleDone) {
+      // Special first battle
+      generatedEnemies = [
+        BressoneEnemies.goblinKing(),
+        ...BressoneEnemies.goblins(5), // 5 goblins
+      ];
+    } else {
+      // Regular random battle
+      generatedEnemies = BressoneEnemies.randomEnemies(3);
+    }
+
     setEnemies(generatedEnemies);
     setPhase("battleIntro");
   };
 
+  // ---- Start Battle ----
   const startBattle = () => {
     setTransitioning(true);
     setTimeout(() => {
@@ -80,9 +138,29 @@ function BressoneBattle() {
 
   const returnToTown = () => navigate("/Bressone");
 
+  // ---- Battle Completion ----
   const BressoneBattleComplete = (didWin) => {
     setBattleResult(didWin ? "victory" : "defeat");
-    setPhase("complete");
+    setDialogIndex3(0);
+
+    if (!firstBattleDone && didWin) {
+      localStorage.setItem("bressoneFirstBattleDone", true);
+      localStorage.setItem(
+        "goblinKingCrown",
+        JSON.stringify({
+          name: "Goblin King’s Crown",
+          description:
+            "A heavy crown that once belonged to the goblin monarch.",
+          image: "/GKC.png",
+        })
+      );
+
+      // Move to dialogue3 after first battle
+      setPhase("dialog3");
+      setDialogIndex2(0);
+    } else {
+      setPhase("complete");
+    }
   };
 
   return (
@@ -109,69 +187,85 @@ function BressoneBattle() {
         </div>
       )}
 
-      {/* Battle Intro Screen */}
-      {phase === "battleIntro" && !transitioning && (
-        <div className="battle-intro-modal">
-          <h2>⚔️ Battle Incoming!</h2>
-          <p>
-            <strong>Your Party:</strong>
-          </p>
-          <ul>
-            {/* Pull party data later; for now just hero */}
-            <li>{mainName}</li>
-          </ul>
-          <p>
-            <strong>Enemies:</strong>
-          </p>
-          <ul>
-            {enemies.map((enemy, i) => (
-              <li key={i}>
-                {enemy.name} (HP: {enemy.HP})
-              </li>
-            ))}
-          </ul>
-          <p className="disclaimer">
-            ⚠️ The battle is automatic. If you want to adjust your team or use
-            items, do so now before continuing.
-          </p>
-          <button onClick={startBattle}>Begin Battle</button>
-          <button onClick={returnToTown}>Return to Town</button>
-        </div>
-      )}
-
-      {/* Transition overlay */}
-      {transitioning && <div className="battle-transition"></div>}
-
-      {/* Battlefield */}
-      {phase === "battle" && !transitioning && (
-        <div className="battlefield">
-          <h1 id="BBTitle">Bressone Outskirts</h1>
-          <BattleManager
-            enemies={enemies}
-            onBattleEnd={BressoneBattleComplete}
+      {/* Dialog 3 (After first battle) */}
+      {phase === "dialog3" && !transitioning && (
+        <div className="bressone-battle-container2">
+          <DialogBox
+            {...dialogue3[dialogIndex3]}
+            onNext={nextDialog3}
+            isLast={dialogIndex3 === dialogue3.length - 1}
           />
-          <button onClick={returnToTown} id="bbreturn">
-            Return to Town
-          </button>
         </div>
       )}
 
-      {/* Battle Complete Modal */}
-      {phase === "complete" && (
-        <div id="resultscreen">
-          <div className="battle-complete-modal">
-            <h2>
-              {battleResult === "victory" ? "🎉 Victory!" : "☠️ Defeat..."}
-            </h2>
+      {/* Battle Intro Screen */}
+      <div className="introbg">
+        {phase === "battleIntro" && !transitioning && (
+          <div className="battle-intro-modal">
+            <h2>⚔️ Battle Incoming!</h2>
             <p>
-              {battleResult === "victory"
-                ? "All enemies have been defeated. Your party stands triumphant!"
-                : "Your party has fallen... Darkness closes in."}
+              <strong>Your Party:</strong>
             </p>
+            <ul>
+              <li>{mainName}</li>
+            </ul>
+            <p>
+              <strong>Enemies:</strong>
+            </p>
+            <ul>
+              {enemies.map((enemy, i) => (
+                <li key={i}>
+                  {enemy.name} (HP: {enemy.HP || enemy.maxHP})
+                </li>
+              ))}
+            </ul>
+            <p className="disclaimer">
+              ⚠️ The battle is automatic. If you want to adjust your team or use
+              items, do so now before continuing.
+            </p>
+            <button onClick={startBattle}>Begin Battle</button>
             <button onClick={returnToTown}>Return to Town</button>
           </div>
-        </div>
-      )}
+        )}
+
+        {/* Transition overlay */}
+        {transitioning && <div className="battle-transition"></div>}
+
+        {/* Battlefield */}
+        {phase === "battle" && !transitioning && (
+          <div className="battlefield">
+            <h1 id="BBTitle">Bressone Outskirts</h1>
+            <BattleManager
+              enemies={enemies}
+              onBattleEnd={BressoneBattleComplete}
+            />
+            <button onClick={returnToTown} id="bbreturn">
+              Return to Town
+            </button>
+          </div>
+        )}
+
+        {/* Battle Complete Modal */}
+        {phase === "complete" && (
+          <div id="resultscreen">
+            <div className="battle-complete-modal">
+              <h2>
+                {battleResult === "victory" ? "🎉 Victory!" : "☠️ Defeat..."}
+              </h2>
+              <p>
+                {battleResult === "victory"
+                  ? "All enemies have been defeated. Your party stands triumphant!"
+                  : "Your party has fallen... Darkness closes in."}
+              </p>
+
+              <button onClick={returnToTown}>Return to Town</button>
+              <div className="spoils">
+                <BressoneSpoils />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

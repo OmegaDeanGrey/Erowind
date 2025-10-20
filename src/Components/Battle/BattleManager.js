@@ -369,9 +369,6 @@ function BattleManager({ enemies, onBattleEnd }) {
 
     // enqueue animations (non-blocking)
     if (animsToPush.length) pushAnimations(animsToPush);
-
-    // append any textual logs
-    if (logs && logs.length) setBattleLog((prev) => [...prev, ...logs]);
   };
 
   const syncTurnOrder = (playersArr, enemiesArr) => {

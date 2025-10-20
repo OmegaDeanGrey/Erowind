@@ -577,6 +577,10 @@
 }
 
 .party-container {
+  background-image: url("/public/training.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   height: 88vh;
   width: 100%;
   display: grid;
@@ -584,18 +588,75 @@
   background-color: rgb(80, 56, 33);
 }
 
+.evolution-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  animation: fadeOut 2.5s forwards;
+  z-index: 9999;
+}
+
+.evolution-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: gold;
+  text-shadow: 2px 2px 8px black;
+  animation: pop 0.3s ease-out;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.7);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.party-member-card.ready-to-evolve {
+  box-shadow: 0 0 20px 8px gold;
+  animation: pulse 1.8s infinite;
+  cursor: pointer;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 10px 3px gold;
+  }
+  50% {
+    box-shadow: 0 0 25px 10px gold;
+  }
+  100% {
+    box-shadow: 0 0 10px 3px gold;
+  }
+}
+
 #BgParty {
-  background-image: url("/public/Entrance.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   width: 110%;
   display: flex;
   justify-content: center;
   height: 86vh;
   /* overflow-x: scroll; */
   /* animation: holy4 15s linear infinite; */
-  border-bottom: 20px white double;
+  /* border-bottom: 20px white double; */
   overflow: visible;
   margin-left: -85px;
   /* margin-right: 750px; */
@@ -697,8 +758,21 @@
   box-shadow: 4px 5px 11px rgb(222, 168, 102);
   border-top-left-radius: 0%;
   text-shadow: 4px 2px white;
-  /* margin-right: -600px; */
+  height: 90px;
+  width: 180px;
+  background-color: rgb(23, 19, 14);
+  border: 5px rgb(150, 120, 120) double;
+  border-radius: 30px;
+  font-size: 29px;
+  font-weight: bolder;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-shadow: 2px 3px rgb(122, 113, 113);
+  color: lightgrey;
+  opacity: 0.8;
+  margin-bottom: 40px;
+  margin-top: 30px;
 }
+/* margin-right: -600px; */
 
 #ClearPartyButton {
   height: 90px;
@@ -1421,4 +1495,46 @@
   padding: 5px;
   margin: 52px;
   border: 3px rgba(228, 94, 144, 0.555) solid;
+}
+
+.party-member-card.ready-to-evolve {
+  box-shadow: 0 0 20px 8px gold;
+  animation: pulse 1.8s infinite;
+  cursor: pointer;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 10px 3px gold;
+  }
+  50% {
+    box-shadow: 0 0 25px 10px gold;
+  }
+  100% {
+    box-shadow: 0 0 10px 3px gold;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.modal-content {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+.choice-buttons button {
+  margin: 8px;
+  padding: 10px 20px;
+  background: gold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }

@@ -169,7 +169,7 @@ const createNightMare = (id = 0) => ({
   },
 });
 
-const BressoneEnemies = {
+const WWEnemies = {
   goblins: (count = 3) =>
     Array(count)
       .fill(null)
@@ -193,4 +193,4 @@ const BressoneEnemies = {
   },
 };
 
-export default BressoneEnemies;
+export default WWEnemies;

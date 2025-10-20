@@ -53,3 +53,33 @@
     transform: scale(1.05);
   }
 }
+
+.arrow {
+  position: absolute;
+  top: 45%; /* vertical path, can adjust */
+  left: -150px; /* start off-screen */
+  width: 100px; /* smaller arrow size for speed effect */
+  height: 300px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: arrow-flight 1.5s linear forwards;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
+}
+
+@keyframes arrow-flight {
+  0% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(600px) rotate(-10deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(1400px) rotate(-20deg);
+    opacity: 0;
+  }
+}

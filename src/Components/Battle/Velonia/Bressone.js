@@ -61,6 +61,18 @@ function Bressone() {
                 Battle
               </button>
             </li>
+            <li>
+              <button
+                onClick={() => {
+                  localStorage.removeItem("bressoneFirstBattleDone");
+                  localStorage.removeItem("goblinKingCrown");
+                  window.location.reload(); // reload to restart battle logic
+                }}
+                className="lnbutt"
+              >
+                Reset First Battle
+              </button>
+            </li>
           </ul>
           {showMenu && (
             <div className="menu">

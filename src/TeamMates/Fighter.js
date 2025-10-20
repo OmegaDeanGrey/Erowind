@@ -9,6 +9,7 @@ function Fighter() {
   const { party, addToParty } = useParty();
   const isPartyFull = party.length >= 5;
   const [fighter, setFighter] = useState(null);
+  const [evolute, setEvolute] = useState(false);
 
   const generateNewFighter = () => {
     const names = [
@@ -61,6 +62,9 @@ function Fighter() {
       level: 1,
       BG: fighterBase.BG,
       Icon: fighterBase.Icon,
+      Experience: 0,
+      Evolution: 10,
+      evolved: "Cavalry",
     };
   };
 

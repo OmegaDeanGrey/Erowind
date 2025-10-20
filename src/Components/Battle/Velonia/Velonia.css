@@ -131,6 +131,68 @@
   border-top-left-radius: 0px;
 }
 
+/* #faeriemenu ul {
+  list-style: none;
+  width: 250px;
+  position: absolute;
+  left: 300px;
+  font-size: 25px;
+  font-weight: bolder;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-shadow: 4px 4px 15px white;
+  margin: 35px;
+  margin-top: -100px;
+  padding: 9px;
+  background-color: rgb(125, 188, 167);
+  color: rgb(4, 53, 37);
+  border: 4px rgb(221, 12, 207) solid;
+  border-radius: 30px;
+  border-top-left-radius: 0%;
+  box-shadow: 5px 6px 12px black, 5px 6px 12px rgb(31, 79, 55) inset;
+} */
+
+.menu4 ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menu4 ul li:hover {
+  background: #81f197;
+  border-radius: 30px;
+  border-top-left-radius: 0px;
+}
+
+.menu4 ul {
+  list-style: none;
+  width: 250px;
+  position: absolute;
+  left: 250px;
+  font-size: 25px;
+  font-weight: bolder;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-shadow: 4px 4px 15px rgb(245, 234, 244);
+  margin: 35px;
+  margin-top: -300px;
+  padding: 9px;
+  background-color: rgba(230, 104, 207, 0.564);
+  color: rgb(248, 244, 249);
+  border: 4px rgb(237, 70, 243) solid;
+  border-radius: 30px;
+  border-top-left-radius: 0%;
+  box-shadow: 5px 6px 12px black, 5px 6px 12px rgb(242, 218, 240) inset;
+}
+
+.menu4 ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menu4 ul li:hover {
+  background: #f1d181;
+  border-radius: 30px;
+  border-top-left-radius: 0px;
+}
+
 #bbreturn {
   font-size: 15px;
   font-weight: bolder;
@@ -199,6 +261,17 @@
   border-bottom: 7px orange double;
 }
 
+#CRTitle2 {
+  position: absolute;
+  color: rgb(122, 230, 127);
+  margin: 100px;
+  font-size: 50px;
+  font-weight: bolder;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  text-shadow: 4px 4px 15px rgb(4, 70, 16);
+  border-bottom: 7px rgb(244, 246, 243) double;
+}
+
 #WesternWoodout {
   background-image: url("/public/WesterWood.JPG");
   background-repeat: no-repeat;
@@ -262,8 +335,7 @@
   border: 7px rgb(243, 237, 241) solid;
   border-radius: 30px;
   border-top-left-radius: 0%;
-  box-shadow: 5px 6px 12px rgb(245, 244, 244),
-    5px 6px 12px rgb(31, 79, 55) inset;
+  box-shadow: 5px 6px 12px rgb(245, 244, 244), 5px 6px 12px rgb(47, 1, 43) inset;
 }
 
 .lnbutt4:hover {
@@ -274,13 +346,12 @@
   margin: 35px;
   margin-left: -10px;
   padding: 9px;
-  background-color: rgb(9, 138, 73);
-  color: rgb(248, 251, 249);
-  border: 7px rgb(6, 93, 36) solid;
+  background-color: rgba(85, 12, 70, 0.285);
+  color: rgb(240, 165, 240);
+  border: 7px rgb(52, 1, 35) solid;
   border-radius: 30px;
   border-top-left-radius: 0%;
-  box-shadow: 5px 6px 12px rgb(245, 244, 244),
-    5px 6px 12px rgb(31, 79, 55) inset;
+  box-shadow: 5px 6px 12px rgb(245, 244, 244), 5px 6px 12px rgb(47, 1, 43) inset;
 }
 
 #sableheimtitle {
@@ -300,4 +371,49 @@
   font-family: "Gill Sans";
   text-shadow: 2px 3px 13px rgb(247, 200, 239);
   font-size: 30px;
+}
+
+#DvasheldGate {
+  background-image: url("/public/Entrance.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh; /* or some fixed height like 600px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#ElvenKingdomBG {
+  background-image: url("/public/EmeraldCastle.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh; /* or some fixed height like 600px */
+  display: flex;
+  align-items: center;
+}
+
+#WWDialog1 {
+  background-image: url("/public/WWDialog1BG.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh; /* or some fixed height like 600px */
+  display: flex;
+  align-items: center;
+}
+
+#WWDialog2 {
+  background-image: url("/public/WWDialog2BG.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh; /* or some fixed height like 600px */
+  display: flex;
+  align-items: center;
 }

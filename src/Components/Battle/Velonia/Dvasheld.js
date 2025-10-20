@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParty } from "../../Context/PartyContext.js";
+import DialogBox from "../../Utility/DialogBox";
+import "./Velonia.css";
 
 function Dvasheld() {
   const navigate = useNavigate();
@@ -8,6 +10,7 @@ function Dvasheld() {
 
   const [showMenu, setShowMenu] = useState(false);
   const [menuType, setMenuType] = useState(null); // "team" or "dwarves"
+  const [gatekeeperDialog, setGatekeeperDialog] = useState(null); // for greeting/refusal
 
   const partyMessages = [
     "We have saved our home, now we must help the dwarves",
@@ -32,74 +35,110 @@ function Dvasheld() {
     setShowMenu(false);
   };
 
+  // Gatekeeper check
+  useEffect(() => {
+    const crown = localStorage.getItem("goblinKingCrown");
+    if (crown) {
+      // Player has crown
+      setGatekeeperDialog({
+        text: "Greetings Goblin Slayer, please enter.",
+        name: "Rhoka",
+        portrait: "/DwarvenGateKeeper.png", // optional portrait asset
+      });
+    } else {
+      // No crown, block entry
+      setGatekeeperDialog({
+        text: "No outsiders!",
+        name: "Rhoka",
+        portrait: "/DwarvenGateKeeper.png",
+      });
+      setTimeout(() => {
+        navigate(-1); // kick back after short delay
+      }, 2000);
+    }
+  }, [navigate]);
+
   return (
     <>
-      <div id="Dvasheldout">
-        <div id="leftnav2">
-          <ul>
-            <li>
-              <button
-                onClick={() => navigate("/CounselRoom")}
-                className="lnbutt2"
-              >
-                Go to Council Room
-              </button>
-            </li>
-            {/* <li>
-              <button onClick={() => navigate("/Shop")} className="lnbutt2">
-                Go To Shop
-              </button>
-            </li> */}
-            <li>
-              <button
-                onClick={() => {
-                  setMenuType("team");
-                  setShowMenu((prev) => !prev);
-                }}
-                className="lnbutt2"
-              >
-                {showMenu && menuType === "team" ? "Nevermind" : "Talk to Team"}
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  setMenuType("dwarves");
-                  setShowMenu((prev) => !prev);
-                }}
-                className="lnbutt2"
-              >
-                {showMenu && menuType === "dwarves"
-                  ? "Nevermind"
-                  : "Talk to Dwarves"}
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => navigate("/DvasheldBattle")}
-                className="lnbutt2"
-              >
-                Battle
-              </button>
-            </li>
-          </ul>
+      {gatekeeperDialog && (
+        <div id="DvasheldGate">
+          <DialogBox
+            {...gatekeeperDialog}
+            onNext={() => setGatekeeperDialog(null)}
+            isLast={true}
+          />
+        </div>
+      )}
 
-          {showMenu && (
-            <div className="menu2">
-              <ul>
-                {menuType === "team" &&
-                  party.map((member, index) => (
-                    <li
-                      key={index}
-                      onClick={() => handleClick(member.name, index)}
-                    >
-                      {member.name} - {member.role}
-                    </li>
-                  ))}
+      {!gatekeeperDialog && (
+        <div id="Dvasheldout">
+          <div id="leftnav2">
+            <ul>
+              <li>
+                <button
+                  onClick={() => navigate("/CounselRoom")}
+                  className="lnbutt2"
+                >
+                  Go to Council Room
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    setMenuType("team");
+                    setShowMenu((prev) => !prev);
+                  }}
+                  className="lnbutt2"
+                >
+                  {showMenu && menuType === "team"
+                    ? "Nevermind"
+                    : "Talk to Team"}
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    setMenuType("dwarves");
+                    setShowMenu((prev) => !prev);
+                  }}
+                  className="lnbutt2"
+                >
+                  {showMenu && menuType === "dwarves"
+                    ? "Nevermind"
+                    : "Talk to Dwarves"}
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => navigate("/DvasheldBattle")}
+                  className="lnbutt2"
+                >
+                  Battle
+                </button>
+              </li>
+            </ul>
 
-                {menuType === "dwarves" &&
-                  ["Tordin", "Dein Biali", "Dvaka", "Ohn Gondlin", "Rhoka"].map(
-                    (dwarf, index) => (
+            {showMenu && (
+              <div className="menu2">
+                <ul>
+                  {menuType === "team" &&
+                    party.map((member, index) => (
+                      <li
+                        key={index}
+                        onClick={() => handleClick(member.name, index)}
+                      >
+                        {member.name} - {member.role}
+                      </li>
+                    ))}
+
+                  {menuType === "dwarves" &&
+                    [
+                      "Tordin",
+                      "Dein Biali",
+                      "Dvaka",
+                      "Ohn Gondlin",
+                      "Rhoka",
+                    ].map((dwarf, index) => (
                       <li
                         key={index}
                         onClick={() => handleClick(dwarf, index)}
@@ -107,18 +146,18 @@ function Dvasheld() {
                       >
                         {dwarf}
                       </li>
-                    )
-                  )}
-              </ul>
-            </div>
-          )}
-        </div>
+                    ))}
+                </ul>
+              </div>
+            )}
+          </div>
 
-        <div>
-          <h1 id="villagetitle">Dvasheld</h1>
-          <h3 id="villagesubtitle">Dwarven StrongHold</h3>
+          <div>
+            <h1 id="villagetitle">Dvasheld</h1>
+            <h3 id="villagesubtitle">Dwarven StrongHold</h3>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

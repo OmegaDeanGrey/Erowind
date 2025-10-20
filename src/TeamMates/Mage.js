@@ -50,6 +50,9 @@ function Mage() {
       level: 1,
       BG: mageBase.BG,
       Icon: mageBase.Icon,
+      exp: 0,
+      Evolution: 10,
+      evolved: "Archmage",
     };
   };
 

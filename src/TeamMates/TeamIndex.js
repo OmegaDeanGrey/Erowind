@@ -28,6 +28,7 @@ function TeamIndex() {
     fullParty,
     removeFromParty,
     party,
+
     map1Trigger,
     map2Trigger,
     map3Trigger,
@@ -201,7 +202,7 @@ function TeamIndex() {
                 setShowDefault(true);
               }}
             >
-              Exit
+              View Selections
             </button>
           </div>
         )}

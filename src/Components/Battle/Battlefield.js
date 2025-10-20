@@ -1,6 +1,7 @@
 // BattleField.js
 import React from "react";
-import "./Battle.css"; // make sure to include the CSS below into this file or a global CSS
+import "./Battle.css";
+import { useNavigate } from "react-router-dom";
 
 function BattleField({
   players = [],
@@ -8,23 +9,25 @@ function BattleField({
   animations = [],
   activeActorId,
 }) {
-  const renderGrid = (team) => {
+  const navigate = useNavigate(null);
+  // render 6 slots for each side (players / enemies)
+  const renderGrid = (team, isEnemy = false) => {
     const slots = Array.from({ length: 6 }, (_, i) => team[i] || null);
 
     return slots.map((member, index) => {
       const id = member?.id || `slot-${index}`;
-      const cellAnims = animations.filter(
-        (a) => a.targetId === id || a.actorId === id
-      );
-
       const isAttacking = activeActorId === id;
+
+      // pick the right background
+      const bgImage = member ? (isEnemy ? member.portrait : member.Icon) : null;
+
       return (
         <div
           key={id}
           id={id}
           className={`grid-cell ${isAttacking ? "attacking" : ""}`}
           style={{
-            backgroundImage: member?.Icon ? `url(${member.Icon})` : "none",
+            backgroundImage: bgImage ? `url(${bgImage})` : "none",
             backgroundSize: "cover",
             backgroundPosition: "center",
             color: "white",
@@ -43,25 +46,27 @@ function BattleField({
             <div className="empty">Empty</div>
           )}
 
-          {/* move-name bubble for actor (if any animation shows actorId === id) */}
+          {/* move-name bubble (above attacker only) */}
           {animations.some((a) => a.actorId === id) && (
             <div className="move-bubble">
               {animations.find((a) => a.actorId === id)?.moveName || "Move"}
             </div>
           )}
 
-          {/* floating numbers for effects that target this slot */}
-          {cellAnims.map((anim) => (
-            <div
-              key={anim.id}
-              className={`float-text ${
-                anim.type === "damage" ? "damage" : "heal"
-              }`}
-              style={{ pointerEvents: "none" }}
-            >
-              {anim.type === "damage" ? `-${anim.value}` : `+${anim.value}`}
-            </div>
-          ))}
+          {/* floating numbers (only above TARGET) */}
+          {animations
+            .filter((a) => a.targetId === id) // only target
+            .map((anim) => (
+              <div
+                key={anim.id}
+                className={`float-text ${
+                  anim.type === "damage" ? "damage" : "heal"
+                }`}
+                style={{ pointerEvents: "none" }}
+              >
+                {anim.type === "damage" ? `-${anim.value}` : `+${anim.value}`}
+              </div>
+            ))}
         </div>
       );
     });
@@ -69,8 +74,8 @@ function BattleField({
 
   return (
     <div className="battle-field-grid">
-      <div className="grid player-side">{renderGrid(players)}</div>
-      <div className="grid enemy-side">{renderGrid(enemies)}</div>
+      <div className="grid player-side">{renderGrid(players, false)}</div>
+      <div className="grid enemy-side">{renderGrid(enemies, true)}</div>
     </div>
   );
 }

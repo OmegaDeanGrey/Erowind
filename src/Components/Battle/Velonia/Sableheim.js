@@ -4,6 +4,7 @@ import "../../Utility/Animations.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParty } from "../../Context/PartyContext.js";
+import DialogBox from "../../Utility/DialogBox.js";
 
 function Sableheim() {
   const navigate = useNavigate();
@@ -11,6 +12,30 @@ function Sableheim() {
 
   const [showMenu, setShowMenu] = useState(false);
   const [menuType, setMenuType] = useState(null); // "team" or "dwarves"
+  const [dialogIndex, setDialogIndex] = useState(0);
+  const heroData = JSON.parse(localStorage.getItem("finalCharacter"));
+  const mainName = heroData?.Name || "Hero";
+
+  const dialogue1 = [
+    {
+      text: "The winds outside Bressone carry whispers of danger...",
+      name: "Narrator",
+    },
+    {
+      text: "A group of monsters lurks beyond the city walls.",
+      name: "Narrator",
+    },
+    {
+      text: "Your party steels themselves for the coming fight.",
+      name: "Narrator",
+    },
+    {
+      text: "You are too puny to defeat us!",
+      name: "Monster",
+      portrait: "/GoblinLeader.png",
+    },
+    { text: "Prepare for battle!", name: mainName, portrait: "/Hero.png" },
+  ];
 
   const partyMessages = [
     "We have saved our home, now we must help the dwarves",
@@ -28,6 +53,12 @@ function Sableheim() {
     "Our halls stand eternal!",
   ];
 
+  const nextDialog1 = () => {
+    if (dialogIndex < dialogue1.length - 1) {
+      setDialogIndex(dialogIndex + 1);
+    }
+  };
+
   const handleClick = (speaker, index) => {
     let messageSet = menuType === "team" ? partyMessages : fairyMessages;
     let message = `${speaker} says: "${messageSet[index % messageSet.length]}"`;
@@ -39,6 +70,13 @@ function Sableheim() {
     <>
       <div id="Sableheimout">
         <div className="sparkle"></div>
+        <div className="bressone-battle-container">
+          <DialogBox
+            {...dialogue1[dialogIndex]}
+            onNext={nextDialog1}
+            isLast={dialogIndex === dialogue1.length - 1}
+          />
+        </div>
         <div id="leftnav2">
           <ul>
             <li>
@@ -89,7 +127,7 @@ function Sableheim() {
           </ul>
 
           {showMenu && (
-            <div className="menu2">
+            <div className="menu4">
               <ul>
                 {menuType === "team" &&
                   party.map((member, index) => (
@@ -102,17 +140,21 @@ function Sableheim() {
                   ))}
 
                 {menuType === "faeries" &&
-                  ["Vai", "SherEm", "NiVei", "Ana", "Vii"].map(
-                    (dwarf, index) => (
-                      <li
-                        key={index}
-                        onClick={() => handleClick(dwarf, index)}
-                        id="dwarfmenu"
-                      >
-                        {dwarf}
-                      </li>
-                    )
-                  )}
+                  [
+                    "A Lai Un",
+                    "Fin E Fa",
+                    "A Dei Da Lun",
+                    "Fro Fen Io",
+                    "Burt",
+                  ].map((faerie, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleClick(faerie, index)}
+                      id="faeriemenu"
+                    >
+                      {faerie}
+                    </li>
+                  ))}
               </ul>
             </div>
           )}

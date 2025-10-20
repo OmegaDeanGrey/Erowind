@@ -80,6 +80,7 @@ const baseStatsByClass = {
     BG: "/FighterBG.png",
     Icon: "/HeroIcon.png",
   },
+
   Priest: {
     Strength: 30,
     Intelligence: 60,
@@ -125,6 +126,7 @@ const baseStatsByClass = {
     BG: "/FighterBG.png",
     Icon: "/FighterIcon.png",
   },
+
   Cleric: {
     Strength: 20,
     Intelligence: 70,
@@ -141,6 +143,15 @@ const baseStatsByClass = {
     Defense: 25,
     HP: 20,
     BG: "/MageBG.png",
+    Icon: "/MageIcon.png",
+  },
+  Archmage: {
+    Strength: 10,
+    Intelligence: 90,
+    Speed: 45,
+    Defense: 45,
+    HP: 50,
+    BG: "/FighterBG.png",
     Icon: "/MageIcon.png",
   },
   Archer: {

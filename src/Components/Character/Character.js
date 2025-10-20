@@ -67,6 +67,7 @@ function Character() {
     let spd = baseStats.Speed || 0;
     let def = baseStats.Defense || 0;
     let hp = baseStats.HP || 0;
+    let exp = 0;
 
     // --- equipment effects ---
     if (headgear === "Feathered Cap") spd += 4;
@@ -116,6 +117,7 @@ function Character() {
       HP: hp,
       HeroPowerLevel: heroPowerLevel || null,
       BattlePower: battleMove || null,
+      Experience: exp,
     };
 
     localStorage.setItem("finalCharacter", JSON.stringify(finalCharacter));

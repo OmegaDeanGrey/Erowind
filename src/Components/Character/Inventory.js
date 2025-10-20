@@ -32,14 +32,14 @@ function Inventory() {
 
   return (
     <div id="inventory">
-      <div id="inventoryTitle">Inventory</div>
+      <div id="inventoryTitle">Gear</div>
       <ul id="inventoryList">
         <li className="invitem">Helmet - {hero.helmet}</li>
         <li className="invitem">Armor - {hero.armor}</li>
         <li className="invitem">Accessory - {hero.accessory}</li>
       </ul>
-      <button id="inventgoback" onClick={() => navigate("/Shop")}>
-        Go To Shop
+      <button id="inventgoback" onClick={() => navigate("/Items")}>
+        View Items
       </button>
     </div>
   );

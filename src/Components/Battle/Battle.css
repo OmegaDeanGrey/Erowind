@@ -120,6 +120,20 @@
   background-repeat: no-repeat;
 }
 
+.WWbattlefield {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 88vh;
+  /* background: linear-gradient(to bottom, #111, #222); */
+  padding: 1rem;
+  gap: 4rem;
+  background-image: url("../../../public/WWDialog1BG.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 150px);
@@ -253,7 +267,9 @@
 }
 
 .battle-intro-modal {
-  background: #1c1c1c;
+  background-color: white;
+  font-size: 26px;
+  font-family: Georgia, "Times New Roman", Times, serif;
   color: white;
   padding: 20px;
   border-radius: 12px;
@@ -262,15 +278,30 @@
   margin: 80px auto;
   text-align: center;
 }
+.introbg {
+  background-image: url("/public/training.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 88vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .battle-intro-modal button {
   margin: 10px;
   padding: 10px 18px;
   border-radius: 8px;
+  font-size: 19px;
+  font-weight: bolder;
+  background-color: rgba(73, 73, 218, 0.522);
+  color: wheat;
 }
 .disclaimer {
-  margin-top: 10px;
+  margin-top: 17px;
   font-size: 0.9rem;
   color: #ffcc66;
+  font-weight: bold;
 }
 
 .battle-complete-modal {
@@ -314,7 +345,7 @@
   background-size: cover;
   height: 88vh;
   animation: fadeIn 0.3s ease-out;
-  z-index: -900;
+
   position: fixed;
   top: 0;
   left: 0;
@@ -479,4 +510,10 @@
 }
 .enemy-side {
   order: 1;
+}
+
+.spoils {
+  height: 300px;
+  background-color: rgb(213, 213, 241);
+  border-radius: 20px;
 }

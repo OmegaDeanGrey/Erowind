@@ -40,8 +40,12 @@ import WesternWood from "./Battle/Velonia/WesternWood.js";
 import Sableheim from "./Battle/Velonia/Sableheim.js";
 import Dvasheld from "./Battle/Velonia/Dvasheld.js";
 import CounselRoom from "./Battle/Velonia/CounselRoom.js";
+import ElvenKingdom from "./Battle/Velonia/ElvenKingdom.js";
 import BattleField from "./Battle/Battlefield.js";
 import BressoneBattle from "./Battle/Velonia/BressonBattle.js";
+import WesternWoodBattle from "./Battle/Velonia/WesternWoodBattle.js";
+import DvasheldBattle from "./Battle/Velonia/DvasheldBattle.js";
+import Items from "./Character/Items.js";
 
 function Navbar() {
   const [showCharacterLink, setShowCharacterLink] = useState(false);
@@ -74,6 +78,11 @@ function Navbar() {
                 <Link to="/OnlyCharacter">Character</Link>
               </li>
             )}
+
+            <li>
+              <Link to="/Items">Item Bag</Link>
+            </li>
+
             {showTrialsLink && (
               <li>
                 <Link to="/Trials">Trials</Link>
@@ -90,7 +99,7 @@ function Navbar() {
               <Link to="/Party">View Party</Link>
             </li>
             <li>
-              <Link to="/BattleHome">Fight</Link>
+              <Link to="/BattleHome">Map</Link>
             </li>
           </ul>
         </div>
@@ -144,13 +153,17 @@ function Navbar() {
         <Route path="/Shop" element={<Shop />} />
         <Route path="/Bressone" element={<Bressone />} />
         <Route path="/OnlyInventory" element={<OnlyInventory />} />
+        <Route path="/Items" element={<Items />} />
         <Route path="/BattleHome" element={<BattleHome />} />
         <Route path="/WesternWood" element={<WesternWood />} />
         <Route path="/Sableheim" element={<Sableheim />} />
         <Route path="/Dvasheld" element={<Dvasheld />} />
         <Route path="/CounselRoom" element={<CounselRoom />} />
+        <Route path="/ElvenKingdom" element={<ElvenKingdom />} />
         <Route path="/BattleField" element={<BattleField />} />
         <Route path="/BressoneBattle" element={<BressoneBattle />} />
+        <Route path="/WesternWoodBattle" element={<WesternWoodBattle />} />
+        <Route path="/DvasheldBattle" element={<WesternWoodBattle />} />
       </Routes>
     </>
   );

@@ -47,6 +47,12 @@ function Summoner() {
       maxHP: baseHP,
       currentHP: baseHP,
       level: 1,
+      BG: summonerBase.BG,
+      Icon: summonerBase.Icon,
+      Experience: 0,
+      Evolution: 10,
+      evolved: "Conjurer",
+      ability: "Summon Bahamut",
     };
   };
 

@@ -14,6 +14,29 @@ function ElvenKingdom() {
   const [firstVisit, setFirstVisit] = useState(false);
   const [dialogComplete, setDialogComplete] = useState(false);
 
+  const partyMessages = [
+    "We have saved our home, now we must help the dwarves",
+    "Stay sharp out there!",
+    "Look to the Peak in the East",
+    "For glory and honor!",
+    "Watch my back, I'll watch yours!",
+  ];
+
+  const elfMessages = [
+    "Stone and steel, friend.",
+    "Ale flows deep in Dvasheld!",
+    "Your bravery leads me to offer our talented Summoners assistance.",
+    "Axes ready, hearts steady.",
+    "Our halls stand eternal!",
+  ];
+
+  const handleClick = (speaker, index) => {
+    let messageSet = menuType === "team" ? partyMessages : elfMessages;
+    let message = `${speaker} says: "${messageSet[index % messageSet.length]}"`;
+    alert(message);
+    setShowMenu(false);
+  };
+
   // check localStorage on mount
   useEffect(() => {
     const visited =
@@ -134,7 +157,7 @@ function ElvenKingdom() {
 
                 {menuType === "elves" &&
                   ["Vai", "SherEm", "NiVei", "Ana", "Vii"].map((elf, index) => (
-                    <li key={index} id="dwarfmenu">
+                    <li key={index} id="elfmenu">
                       {elf}
                     </li>
                   ))}

@@ -183,6 +183,28 @@ function Party() {
                   >
                     ❌ Remove
                   </button>
+                  <button
+                    className="remove-button fancy-remove"
+                    onClick={() => {
+                      // Get current Pantheon members
+                      const pantheon =
+                        JSON.parse(localStorage.getItem("pantheon")) || [];
+
+                      // Add the selected member
+                      pantheon.push(member);
+
+                      // Save updated list
+                      localStorage.setItem(
+                        "pantheon",
+                        JSON.stringify(pantheon)
+                      );
+
+                      // Remove from active party
+                      removeFromParty(index);
+                    }}
+                  >
+                    🏛️ Send to Pantheon
+                  </button>
                 </li>
               ))}
             </ol>

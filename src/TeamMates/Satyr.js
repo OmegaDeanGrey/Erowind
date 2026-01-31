@@ -42,7 +42,7 @@ function Satyr() {
     "Jack",
   ];
   const randomName = names[Math.floor(Math.random() * names.length)];
-  const [alert, setAlert] = useState("");
+
   // useEffect(() => {
   //   // Generate stats only once
   //   setStats({

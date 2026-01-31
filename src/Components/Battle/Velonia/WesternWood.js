@@ -104,6 +104,11 @@ function WesternWood() {
               Battle
             </button>
           </li>
+          <li>
+            <button onClick={() => navigate("/BattleHome")} className="lnbutt3">
+              Velonia Map
+            </button>
+          </li>
         </ul>
 
         {showMenu && (

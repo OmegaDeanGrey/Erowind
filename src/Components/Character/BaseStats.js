@@ -32,7 +32,7 @@ const baseStatsByClass = {
     Speed: 50,
     Defense: 70,
     HP: 70,
-    BG: "/FighterBG.png",
+    BG: "/KnightBG.png",
     Icon: "/HeroIcon.png",
   },
   Scout: {
@@ -151,7 +151,7 @@ const baseStatsByClass = {
     Speed: 45,
     Defense: 45,
     HP: 50,
-    BG: "/FighterBG.png",
+    BG: "/Archmage.png",
     Icon: "/MageIcon.png",
   },
   Archer: {
@@ -178,8 +178,8 @@ const baseStatsByClass = {
     Speed: 10,
     Defense: 45,
     HP: 40,
-    BG: "/FighterBG.png",
-    Icon: "/FighterIcon.png",
+    BG: "/SummonerBG.png",
+    Icon: "/SummonerIcon.png",
   },
   Fairy: {
     Strength: 15,

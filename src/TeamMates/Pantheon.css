@@ -1,0 +1,179 @@
+/* =========================
+   PANTHEON CONTAINER
+========================= */
+
+.pantheon-container {
+  padding: 20px;
+  text-align: center;
+  border: 13px double black;
+
+  background-image: url("/public/Black.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  color: aliceblue;
+  min-height: 100vh;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+#pantheon-title {
+  font-size: 64px;
+  text-shadow: 3px 3px 13px rgba(200, 200, 200, 0.8);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  margin-bottom: 30px;
+}
+
+/* =========================
+   CARD GRID
+========================= */
+
+.pantheon-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+}
+
+/* =========================
+   PANTHEON CARD
+========================= */
+
+.pantheon-card {
+  position: relative;
+  width: 180px;
+  height: 250px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 10px;
+  border-radius: 15px;
+
+  background-size: cover;
+  background-position: center;
+
+  border: 1px solid rgb(5, 5, 110);
+  box-shadow: 5px 6px 18px rgba(255, 255, 255, 0.6);
+
+  overflow: hidden;
+
+  transition: transform 0.2s ease, opacity 0.6s ease;
+}
+
+.pantheon-card:hover {
+  transform: scale(1.05);
+}
+
+/* 🚫 kill any accidental duplicate layers */
+.pantheon-card::before,
+.pantheon-card::after {
+  content: none !important;
+}
+
+/* =========================
+   INFO PANEL (GLASS SAFE)
+========================= */
+
+.pantheon-info {
+  background: rgba(0, 0, 0, 0.304);
+  backdrop-filter: blur(6px);
+  border-radius: 10px 10px 0 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  padding: 6px;
+  z-index: 2;
+}
+
+.pantheon-info h2 {
+  margin: 4px 0;
+  font-size: 28px;
+}
+
+.pantheon-info p {
+  margin: 2px 0;
+  font-size: 16px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+#PanButton {
+  margin-top: 6px;
+  padding: 6px;
+
+  font-size: 16px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+
+  background-color: bisque;
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#PanButton:hover {
+  background-color: rgb(243, 239, 234);
+}
+
+/* RETIRE BUTTON VARIANT */
+#PanButton.retire {
+  background: rgba(180, 40, 40, 0.85);
+  color: white;
+}
+
+#PanButton.retire:hover {
+  background: rgba(220, 60, 60, 0.95);
+}
+
+/* =========================
+   RETIRE CONFIRM PANEL
+========================= */
+
+.retire-confirm {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+
+  padding: 12px;
+  border-radius: 10px;
+
+  text-align: center;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.retire-confirm p {
+  margin-bottom: 8px;
+}
+
+.retire-confirm button {
+  margin: 4px;
+}
+
+/* =========================
+   FADE OUT ANIMATION
+========================= */
+
+.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+/* =========================
+   KEYFRAMES
+========================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

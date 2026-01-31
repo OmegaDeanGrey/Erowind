@@ -1,17 +1,17 @@
 // BressoneEnemies.js
-const createGoblinKing = () => ({
-  id: "goblin-king",
-  name: "Goblin King",
-  role: "Goblin King",
+const createDarkElfKing = () => ({
+  id: "DarkElf-king",
+  name: "DarkElf King",
+  role: "DarkElf King",
   maxHP: 200,
   currentHP: 200,
   strength: 40,
   defense: 25,
   speed: 20,
   experienceYield: 50,
-  portrait: "/GoblinKing.png",
+  portrait: "/DarkElfKing.png",
   action: {
-    name: "Royal Smash",
+    name: "Dark Smash",
     type: "damage",
     power: 40,
     target: "singleEnemy",
@@ -33,19 +33,19 @@ const createGoblinKing = () => ({
   },
 });
 
-const createGoblin = (id = 0) => ({
-  id: `goblin-${id}`,
-  name: `Goblin ${id + 1}`,
-  role: "Goblin",
+const createDarkElf = (id = 0) => ({
+  id: `DarkElf-${id}`,
+  name: `DarkElf ${id + 1}`,
+  role: "DarkElf",
   maxHP: 30,
   currentHP: 30,
   strength: 30,
   defense: 20,
   speed: 30,
   experienceYield: 5,
-  portrait: "/GoblinLeader.png",
+  portrait: "/DarkElfLeader.png",
   action: {
-    name: "Hit",
+    name: "Undercut",
     type: "damage",
     power: 20,
     target: "singleEnemy",
@@ -67,19 +67,19 @@ const createGoblin = (id = 0) => ({
   },
 });
 
-const createOrc = (id = 0) => ({
-  id: `orc-${id}`,
-  name: `Orc ${id + 1}`,
-  role: "Orc",
+const createWillOWisp = (id = 0) => ({
+  id: `WillOWisp-${id}`,
+  name: `WillOWisp ${id + 1}`,
+  role: "WillOWisp",
   maxHP: 40,
   currentHP: 40,
   strength: 35,
   defense: 30,
   speed: 10,
   experienceYield: 10,
-  portrait: "/Orc.png",
+  portrait: "/WillOWisp.png",
   action: {
-    name: "Club",
+    name: "Cringe",
     type: "damage",
     power: 35,
     target: "singleEnemy",
@@ -101,19 +101,19 @@ const createOrc = (id = 0) => ({
   },
 });
 
-const createSpriggan = (id = 0) => ({
-  id: `spriggan-${id}`,
-  name: `Spriggan ${id + 1}`,
-  role: "Spriggan",
+const createTroll = (id = 0) => ({
+  id: `Troll-${id}`,
+  name: `Troll ${id + 1}`,
+  role: "Troll",
   maxHP: 40,
   currentHP: 40,
   strength: 25,
   defense: 20,
   speed: 60,
   experienceYield: 10,
-  portrait: "/Spriggan.png",
+  portrait: "/Troll.png",
   action: {
-    name: "Shenanigans",
+    name: "Club",
     type: "damage",
     power: 25,
     target: "singleEnemy",
@@ -135,19 +135,19 @@ const createSpriggan = (id = 0) => ({
   },
 });
 
-const createNightMare = (id = 0) => ({
-  id: `nightmare-${id}`,
-  name: `NightMare ${id + 1}`,
-  role: "NightMare",
+const createPoltergeist = (id = 0) => ({
+  id: `Poltergeist-${id}`,
+  name: `Poltergeist ${id + 1}`,
+  role: "Poltergeist",
   maxHP: 50,
   currentHP: 50,
   strength: 35,
   defense: 40,
   speed: 40,
   experienceYield: 20,
-  portrait: "/Nightmare.png",
+  portrait: "/Poltergeist.png",
   action: {
-    name: "PhantomKick",
+    name: "Dark Magic",
     type: "damage",
     power: 35,
     target: "singleEnemy",
@@ -170,23 +170,23 @@ const createNightMare = (id = 0) => ({
 });
 
 const WWEnemies = {
-  goblins: (count = 3) =>
+  DarkElfs: (count = 3) =>
     Array(count)
       .fill(null)
-      .map((_, i) => createGoblin(i)),
-  goblinKing: createGoblinKing,
+      .map((_, i) => createDarkElf(i)),
+  DarkElfKing: createDarkElfKing,
   randomEnemies: (count = 3) => {
     const enemies = [];
     for (let i = 0; i < count; i++) {
       const roll = Math.random() * 100;
       if (roll < 60) {
-        enemies.push(createGoblin(i));
+        enemies.push(createDarkElf(i));
       } else if (roll < 85) {
-        enemies.push(createOrc(i));
+        enemies.push(createWillOWisp(i));
       } else if (roll < 95) {
-        enemies.push(createSpriggan(i));
+        enemies.push(createTroll(i));
       } else {
-        enemies.push(createNightMare(i));
+        enemies.push(createPoltergeist(i));
       }
     }
     return enemies;

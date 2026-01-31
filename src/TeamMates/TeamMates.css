@@ -348,7 +348,7 @@
 }
 
 #FighterButton {
-  background-image: url("../../public/Knight.png");
+  background-image: url("../../public/KnightBG.png");
   background-repeat: repeat;
   background-size: small;
 }
@@ -1537,4 +1537,9 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.partymessage {
+  color: white;
+  position: absolutex;
 }

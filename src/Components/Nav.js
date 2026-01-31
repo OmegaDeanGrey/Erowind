@@ -44,8 +44,11 @@ import ElvenKingdom from "./Battle/Velonia/ElvenKingdom.js";
 import BattleField from "./Battle/Battlefield.js";
 import BressoneBattle from "./Battle/Velonia/BressonBattle.js";
 import WesternWoodBattle from "./Battle/Velonia/WesternWoodBattle.js";
+import Conclave from "./Battle/Velonia/Conclave.js";
 import DvasheldBattle from "./Battle/Velonia/DvasheldBattle.js";
+
 import Items from "./Character/Items.js";
+import Pantheon from "../TeamMates/Pantheon.js";
 
 function Navbar() {
   const [showCharacterLink, setShowCharacterLink] = useState(false);
@@ -97,6 +100,9 @@ function Navbar() {
             </li>
             <li>
               <Link to="/Party">View Party</Link>
+            </li>
+            <li>
+              <Link to="/Pantheon">Reserves</Link>
             </li>
             <li>
               <Link to="/BattleHome">Map</Link>
@@ -159,11 +165,13 @@ function Navbar() {
         <Route path="/Sableheim" element={<Sableheim />} />
         <Route path="/Dvasheld" element={<Dvasheld />} />
         <Route path="/CounselRoom" element={<CounselRoom />} />
+        <Route path="/Conclave" element={<Conclave />} />
         <Route path="/ElvenKingdom" element={<ElvenKingdom />} />
         <Route path="/BattleField" element={<BattleField />} />
         <Route path="/BressoneBattle" element={<BressoneBattle />} />
         <Route path="/WesternWoodBattle" element={<WesternWoodBattle />} />
         <Route path="/DvasheldBattle" element={<WesternWoodBattle />} />
+        <Route path="/Pantheon" element={<Pantheon />} />
       </Routes>
     </>
   );

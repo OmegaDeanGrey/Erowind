@@ -518,6 +518,7 @@ function TeamIndex() {
                 </button>
               </li>
             ))}
+            <h1 className="partymessage">Your Selected Party</h1>
 
             {fullParty && (
               <div>

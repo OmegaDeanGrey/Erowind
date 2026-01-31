@@ -147,17 +147,25 @@
 }
 
 .grid-cell {
-  background-color: #1f494bca;
-  color: white;
-  border: 6px solid #65687a;
-  text-shadow: 2px 2px black;
-  border-radius: 540px;
-  font-weight: bold;
-  font-size: 1.3rem;
-  padding: 0.5rem;
-  cursor: pointer;
-  text-align: center;
-  box-shadow: 5px 5px 14px white, 5px 5px 15px grey inset;
+  width: 150px;
+  height: 150px;
+  border-radius: 18px;
+  background: linear-gradient(
+    to bottom,
+    rgba(40, 60, 70, 0.85),
+    rgba(15, 25, 30, 0.9)
+  );
+  border: 2px solid rgba(171, 171, 234, 0.864);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 6px;
+  padding: 10px;
+  position: relative;
+  overflow: visible;
+  opacity: 0.7;
 }
 
 .grid-cell:hover {
@@ -181,7 +189,52 @@
   border-top-right-radius: 0%;
 }
 
+.player-side .grid-cell {
+  border-left: 4px solid #5aa2ff;
+}
+
+.enemy-side .grid-cell {
+  border-right: 4px solid #ff5a5a;
+  filter: saturate(1.15);
+}
+
+.grid-cell.attacking {
+  animation: attackerPulse 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 0 35px rgba(255, 200, 80, 0.9),
+    inset 0 0 30px rgba(255, 220, 120, 0.15);
+  z-index: 10;
+}
+
+@keyframes attackerPulse {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.12) translateY(-10px);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.battle-field-grid {
+  position: relative;
+}
+
+.battle-field-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.05),
+    rgba(0, 0, 0, 0.8)
+  );
+  pointer-events: none;
+}
+
 .battle-container {
+  position: relative;
   height: 50%;
   display: flex;
   justify-content: space-evenly;
@@ -192,15 +245,56 @@
 }
 
 .battle-log {
+  position: fixed; /* detach from layout */
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 420px;
+  max-height: 220px;
+
+  padding: 14px 16px;
+
   color: aliceblue;
-  background-color: rgb(8, 9, 9);
-  border: grey 20px double;
-  overflow: scroll;
-  position: absolute;
-  margin-bottom: -700px;
-  width: 500px;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 14, 18, 0.92),
+    rgba(4, 6, 8, 0.96)
+  );
+
+  border: 3px solid rgba(180, 180, 200, 0.63);
+  border-radius: 14px;
+
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8),
+    inset 0 0 18px rgba(255, 255, 255, 0.04);
+
+  font-family: "Cinzel", "Trajan Pro", serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+
+  overflow: hidden;
+  z-index: 20;
 }
 
+.battle-log p {
+  margin: 6px 0;
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.35;
+  opacity: 0.9;
+}
+
+.battle-log p::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: rgba(255, 200, 120, 0.8);
+}
+
+.battlebuttons {
+  background-color: rgba(0, 0, 255, 0.601);
+  color: black;
+}
 #BBTitle {
   color: rgb(239, 228, 228);
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -366,6 +460,14 @@
   }
 }
 
+#WWBOut {
+  background-image: url("/public/WWB.JPG");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 89vh;
+  margin-top: -79px;
+}
 /* Modal box styling */
 .battle-intro-modal,
 .battle-complete-modal {
@@ -377,24 +479,6 @@
   max-width: 500px;
   width: 90%;
   text-align: center;
-}
-
-/* generic cell */
-.grid-cell {
-  width: 140px;
-  height: 140px;
-  border-radius: 50px;
-  margin: 6px;
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  color: white;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  position: relative;
-  overflow: visible;
-  box-shadow: 5px 5px 15px black, 5px 5px 15px rgb(125, 125, 125) inset;
 }
 
 .grid-cell .name {
@@ -514,6 +598,79 @@
 
 .spoils {
   height: 300px;
-  background-color: rgb(213, 213, 241);
+  background-color: rgba(121, 121, 243, 0.466);
   border-radius: 20px;
+  font-size: 22px;
+  padding: 6px;
+  margin: 19px;
+  box-shadow: 4px 5px 9px black inset;
+}
+
+/* .move-bubble {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 6px 12px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  animation: fadeUp 1s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+} */
+
+#WWDialog1 {
+  background-image: url("/public/DemiGod.png");
+}
+
+#DvasDi1 {
+  background-image: url("/public/DvasDi1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh; /* or some fixed height like 600px */
+  display: flex;
+  align-items: center;
+}
+
+#DvasDi2 {
+  background-image: url("/public/DvasDi2.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh; /* or some fixed height like 600px */
+  display: flex;
+  align-items: center;
+}
+
+.hp-bar {
+  width: 80%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.hp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff4d4d, #ff9900);
+  transition: width 0.4s ease-out;
 }

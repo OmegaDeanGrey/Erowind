@@ -5,6 +5,7 @@ import BattleManager from "../BattleManager";
 import { useNavigate } from "react-router-dom";
 import "../Battle.css";
 import DialogBox from "../../Utility/DialogBox";
+import { useParty } from "../../Context/PartyContext";
 
 function BressoneBattle() {
   const [enemies, setEnemies] = useState([]);
@@ -19,6 +20,7 @@ function BressoneBattle() {
 
   const heroData = JSON.parse(localStorage.getItem("finalCharacter"));
   const mainName = heroData?.Name || "Hero";
+  const { party } = useParty();
 
   const firstBattleDone =
     JSON.parse(localStorage.getItem("bressoneFirstBattleDone")) || false;
@@ -51,16 +53,6 @@ function BressoneBattle() {
           text: "A group of monsters lurks beyond the city walls.",
           name: "Narrator",
         },
-        {
-          text: "Your party steels themselves for the coming fight.",
-          name: "Narrator",
-        },
-        {
-          text: "We will avenge our king!",
-          name: "Goblin",
-          portrait: "/GoblinLeader.png",
-        },
-        { text: "Prepare for battle!", name: mainName, portrait: "/Hero.png" },
       ];
 
   const dialogue2 = [
@@ -88,7 +80,12 @@ function BressoneBattle() {
     if (dialogIndex < dialogue1.length - 1) {
       setDialogIndex(dialogIndex + 1);
     } else {
-      setPhase("dialog2");
+      if (firstBattleDone) {
+        // Skip straight to battle for subsequent fights
+        prepareBattle();
+      } else {
+        setPhase("dialog2");
+      }
     }
   };
 
@@ -141,7 +138,6 @@ function BressoneBattle() {
   // ---- Battle Completion ----
   const BressoneBattleComplete = (didWin) => {
     setBattleResult(didWin ? "victory" : "defeat");
-    setDialogIndex3(0);
 
     if (!firstBattleDone && didWin) {
       localStorage.setItem("bressoneFirstBattleDone", true);
@@ -193,7 +189,7 @@ function BressoneBattle() {
           <DialogBox
             {...dialogue3[dialogIndex3]}
             onNext={nextDialog3}
-            isLast={dialogIndex3 === dialogue3.length - 1}
+            isLast={dialogIndex2 === dialogue3.length - 1}
           />
         </div>
       )}
@@ -208,7 +204,14 @@ function BressoneBattle() {
             </p>
             <ul>
               <li>{mainName}</li>
+              {party.map((member, i) => (
+                <li key={i}>
+                  {member.name || member.Name} (HP:{" "}
+                  {member.currentHP ?? member.maxHP})
+                </li>
+              ))}
             </ul>
+
             <p>
               <strong>Enemies:</strong>
             </p>
@@ -223,7 +226,9 @@ function BressoneBattle() {
               ⚠️ The battle is automatic. If you want to adjust your team or use
               items, do so now before continuing.
             </p>
-            <button onClick={startBattle}>Begin Battle</button>
+            <button className="battlebuttons" onClick={startBattle}>
+              Begin Battle
+            </button>
             <button onClick={returnToTown}>Return to Town</button>
           </div>
         )}
@@ -258,7 +263,9 @@ function BressoneBattle() {
                   : "Your party has fallen... Darkness closes in."}
               </p>
 
-              <button onClick={returnToTown}>Return to Town</button>
+              <button className="battlebuttons" onClick={returnToTown}>
+                Return to Town
+              </button>
               <div className="spoils">
                 <BressoneSpoils />
               </div>

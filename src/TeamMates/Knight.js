@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useParty } from "../Components/Context/PartyContext";
 import baseStatsByClass from "../Components/Character/BaseStats";
 
-function Fighter() {
+function Knight() {
   const [showOverlay, setShowOverlay] = useState(false);
   const navigate = useNavigate();
   const { party, addToParty } = useParty();
   const isPartyFull = party.length >= 5;
-  const [fighter, setFighter] = useState(null);
+  const [Knight, setKnight] = useState(null);
   const [evolute, setEvolute] = useState(false);
 
-  const generateNewFighter = () => {
+  const generateNewKnight = () => {
     const names = [
       "Bob",
       "Charlie",
@@ -45,23 +45,23 @@ function Fighter() {
     const randomName =
       availableNames.length > 0
         ? availableNames[Math.floor(Math.random() * availableNames.length)]
-        : `Fighter${Math.floor(Math.random() * 1000)}`;
+        : `Knight${Math.floor(Math.random() * 1000)}`;
 
-    const fighterBase = baseStatsByClass["Fighter"];
-    const baseHP = fighterBase.HP + Math.floor(Math.random() * 10);
+    const KnightBase = baseStatsByClass["Knight"];
+    const baseHP = KnightBase.HP + Math.floor(Math.random() * 10);
 
     return {
       name: randomName,
-      role: "Fighter",
-      strength: fighterBase.Strength + Math.floor(Math.random() * 10),
-      intelligence: fighterBase.Intelligence + Math.floor(Math.random() * 10),
-      speed: fighterBase.Speed + Math.floor(Math.random() * 10),
-      defense: fighterBase.Defense + Math.floor(Math.random() * 10),
+      role: "Knight",
+      strength: KnightBase.Strength + Math.floor(Math.random() * 10),
+      intelligence: KnightBase.Intelligence + Math.floor(Math.random() * 10),
+      speed: KnightBase.Speed + Math.floor(Math.random() * 10),
+      defense: KnightBase.Defense + Math.floor(Math.random() * 10),
       maxHP: baseHP,
       currentHP: baseHP,
       level: 1,
-      BG: fighterBase.BG,
-      Icon: fighterBase.Icon,
+      BG: KnightBase.BG,
+      Icon: KnightBase.Icon,
       Experience: 0,
       Evolution: 10,
       evolved: "Cavalry",
@@ -70,18 +70,18 @@ function Fighter() {
   };
 
   useEffect(() => {
-    setFighter(generateNewFighter());
+    setKnight(generateNewKnight());
   }, []);
 
   const handleAddToParty = () => {
-    if (isPartyFull || !fighter) return;
+    if (isPartyFull || !Knight) return;
 
-    addToParty(fighter);
+    addToParty(Knight);
     setShowOverlay(true);
 
     setTimeout(() => {
       setShowOverlay(false);
-      setFighter(generateNewFighter()); // Generate a new unique fighter
+      setKnight(generateNewKnight()); // Generate a new unique Knight
     }, 2000);
   };
 
@@ -111,7 +111,7 @@ function Fighter() {
               animation: "fadeIn 1s ease-out",
             }}
           >
-            Fighter <br />
+            Knight <br />
             Ready to Battle!
           </h1>
         </div>
@@ -119,22 +119,22 @@ function Fighter() {
 
       {isPartyFull && (
         <div>
-          <p id="PFFighter">Party Full</p>
+          <p id="PFKnight">Party Full</p>
         </div>
       )}
 
       <div className="containerdiv">
-        <video muted autoPlay playsInline id="FighterVid">
-          <source src="./Fighter.mp4" type="video/mp4" />
+        <video muted autoPlay playsInline id="KnightVid">
+          <source src="./Knight.mp4" type="video/mp4" />
         </video>
-        <div id="fighterall">
-          <h1 id="fightertitle">Fighter</h1>
-          <div className="desccanvas" id="Fighterdesc">
+        <div id="Knightall">
+          <h1 id="Knighttitle">Knight</h1>
+          <div className="desccanvas" id="Knightdesc">
             <h2>Ability: Slash</h2>
             <p>Attacks Single front row with powerful blow</p>
           </div>
           <div>
-            <ul id="Fighteradj">
+            <ul id="Knightadj">
               <li>Str: 60</li>
               <li>Int: 10</li>
               <li>Spd: 20</li>
@@ -146,7 +146,7 @@ function Fighter() {
         <div className="buttoncase">
           <button
             className="dabuttons"
-            id="FighterSelectButton"
+            id="KnightSelectButton"
             onClick={handleAddToParty}
             disabled={isPartyFull}
           >
@@ -155,7 +155,7 @@ function Fighter() {
 
           <button
             className="dabuttons"
-            id="FighterbttButton"
+            id="KnightbttButton"
             onClick={() => navigate("/Party")}
           >
             View Party
@@ -166,4 +166,4 @@ function Fighter() {
   );
 }
 
-export default Fighter;
+export default Knight;

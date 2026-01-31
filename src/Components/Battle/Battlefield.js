@@ -20,6 +20,7 @@ function BattleField({
 
       // pick the right background
       const bgImage = member ? (isEnemy ? member.portrait : member.Icon) : null;
+      console.log(member);
 
       return (
         <div
@@ -38,8 +39,17 @@ function BattleField({
             <>
               <div className="name">{member.name || member.Name}</div>
               <div className="role">{member.role}</div>
-              <div className="hp">
-                HP: {member.currentHP ?? member.HP}/{member.maxHP ?? member.HP}
+              <div className="hp-bar">
+                <div
+                  className="hp-fill"
+                  style={{
+                    width: `${
+                      ((member.currentHP ?? 0) /
+                        (member.maxHP ?? member.HP ?? 1)) *
+                      100
+                    }%`,
+                  }}
+                />
               </div>
             </>
           ) : (
@@ -49,7 +59,9 @@ function BattleField({
           {/* move-name bubble (above attacker only) */}
           {animations.some((a) => a.actorId === id) && (
             <div className="move-bubble">
-              {animations.find((a) => a.actorId === id)?.moveName || "Move"}
+              {member.ability ||
+                animations.find((a) => a.actorId === id)?.ability ||
+                "Act"}
             </div>
           )}
 

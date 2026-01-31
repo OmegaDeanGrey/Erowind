@@ -50,7 +50,7 @@ function Bressone() {
                 onClick={showMenu ? () => setShowMenu(false) : handleSpeech}
                 className="lnbutt"
               >
-                {showMenu ? "Nevermindxx" : "Talk to Team"}
+                {showMenu ? "Nevermind" : "Talk to Team"}
               </button>
             </li>
             <li>
@@ -71,6 +71,14 @@ function Bressone() {
                 className="lnbutt"
               >
                 Reset First Battle
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => navigate("/BattleHome")}
+                className="lnbutt"
+              >
+                Velonia Map
               </button>
             </li>
           </ul>

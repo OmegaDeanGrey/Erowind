@@ -117,7 +117,7 @@ function BattleManager({ enemies, onBattleEnd }) {
     withIds.forEach((a) => {
       setTimeout(() => {
         setAnimations((prev) => prev.filter((p) => p.id !== a.id));
-      }, 1100);
+      }, 1300);
     });
   };
 

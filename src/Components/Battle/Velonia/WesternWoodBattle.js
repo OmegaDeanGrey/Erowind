@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import WWEnemies from "../Velonia/WWEnemies";
 import BattleManager from "../BattleManager";
 import { useNavigate } from "react-router-dom";
+import WWSpoils from "./WWSpoils.js";
 import "../Battle.css";
 import "../../Utility/Animations.css";
 import DialogBox from "../../Utility/DialogBox";
@@ -17,6 +18,7 @@ function WesternWoodBattle() {
   const [showArrow, setShowArrow] = useState(false);
   const navigate = useNavigate();
   const { setMap2Trigger } = useParty();
+  const { party } = useParty();
 
   const heroData = JSON.parse(localStorage.getItem("finalCharacter"));
   const mainName = heroData?.Name || "Hero";
@@ -56,34 +58,27 @@ function WesternWoodBattle() {
           name: "Voice",
         },
         {
-          text: "A group of monsters lurks beyond the city walls.",
-          name: "Narrator",
+          text: "...they are flanking us!",
+          name: "NiVei",
+          portrait: "/NiVei.png",
         },
-        {
-          text: "Your party steels themselves for the coming fight.",
-          name: "Narrator",
-        },
-        {
-          text: "We will avenge our king!",
-          name: "Goblin",
-          portrait: "/GoblinLeader.png",
-        },
+
         { text: "Prepare for battle!", name: mainName, portrait: "/Hero.png" },
       ];
 
   const dialogue2 = [
     { text: "An Arrow wizzes by your heads...", name: "Voice" },
     {
-      text: "We shall defend them...",
+      text: "We shall defend...",
       name: mainName,
       portrait: "/Hero.png",
     },
   ];
 
   const dialogue3 = [
-    { text: "You have defeated the Goblin King!", name: mainName },
-    { text: "The Goblin King Crown is now yours.", name: "Narrator" },
-    { text: "Our city is safe thanks to you!", name: mainName },
+    { text: "You have defeated the threat!", name: mainName },
+    { text: "Grateful Elves hand you a token of gratitude.", name: "Narrator" },
+    { text: "Received Elven Emblem!", name: mainName },
   ];
 
   // ---- Dialogue Navigation ----
@@ -125,8 +120,8 @@ function WesternWoodBattle() {
     if (!westernWoodFirstBattleDone) {
       // Special first battle
       generatedEnemies = [
-        WWEnemies.goblinKing(),
-        ...WWEnemies.goblins(5), // 5 goblins
+        WWEnemies.DarkElfKing(),
+        ...WWEnemies.DarkElfs(5), // 5 goblins
       ];
     } else {
       // Regular random battle
@@ -159,7 +154,7 @@ function WesternWoodBattle() {
         JSON.stringify({
           name: "Elven Emblem",
           desciption: "Elven Insignia",
-          image: "/ElvenEmblem",
+          image: "/ElvenEmblem.png",
           type: "key item",
         })
       );
@@ -216,30 +211,38 @@ function WesternWoodBattle() {
       {/* <div className="introbg"> */}
       {/* Battle Intro Screen */}
       {phase === "battleIntro" && !transitioning && (
-        <div className="battle-intro-modal">
-          <h2>⚔️ Battle Incoming!</h2>
-          <p>
-            <strong>Your Party:</strong>
-          </p>
-          <ul>
-            <li>{mainName}</li>
-          </ul>
-          <p>
-            <strong>Enemies:</strong>
-          </p>
-          <ul>
-            {enemies.map((enemy, i) => (
-              <li key={i}>
-                {enemy.name} (HP: {enemy.HP || enemy.maxHP})
-              </li>
-            ))}
-          </ul>
-          <p className="disclaimer">
-            ⚠️ The battle is automatic. If you want to adjust your team or use
-            items, do so now before continuing.
-          </p>
-          <button onClick={startBattle}>Begin Battle</button>
-          <button onClick={returnToTown}>Return to Town</button>
+        <div id="WWBOut">
+          <div className="battle-intro-modal">
+            <h2>⚔️ Battle Incoming!</h2>
+            <p>
+              <strong>Your Party:</strong>
+            </p>
+            <ul>
+              <li>{mainName}</li>
+              {party.map((member, i) => (
+                <li key={i}>
+                  {member.name || member.Name} (HP:{" "}
+                  {member.currentHP ?? member.maxHP})
+                </li>
+              ))}
+            </ul>
+            <p>
+              <strong>Enemies:</strong>
+            </p>
+            <ul>
+              {enemies.map((enemy, i) => (
+                <li key={i}>
+                  {enemy.name} (HP: {enemy.HP || enemy.maxHP})
+                </li>
+              ))}
+            </ul>
+            <p className="disclaimer">
+              ⚠️ The battle is automatic. If you want to adjust your team or use
+              items, do so now before continuing.
+            </p>
+            <button onClick={startBattle}>Begin Battle</button>
+            <button onClick={returnToTown}>Return to Town</button>
+          </div>
         </div>
       )}
 
@@ -280,6 +283,9 @@ function WesternWoodBattle() {
             </p>
 
             <button onClick={returnToTown}>Return to Town</button>
+            <div className="spoils">
+              <WWSpoils />
+            </div>
           </div>
         </div>
       )}

@@ -1,5 +1,6 @@
 import "./Velonia.css";
 import "../../Utility/Animations.css";
+import Conclave from "./Conclave.js";
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,23 +19,9 @@ function Sableheim() {
 
   const dialogue1 = [
     {
-      text: "The winds outside Bressone carry whispers of danger...",
-      name: "Narrator",
+      text: "Who goes there?",
+      name: "Mysterious Fairy",
     },
-    {
-      text: "A group of monsters lurks beyond the city walls.",
-      name: "Narrator",
-    },
-    {
-      text: "Your party steels themselves for the coming fight.",
-      name: "Narrator",
-    },
-    {
-      text: "You are too puny to defeat us!",
-      name: "Monster",
-      portrait: "/GoblinLeader.png",
-    },
-    { text: "Prepare for battle!", name: mainName, portrait: "/Hero.png" },
   ];
 
   const partyMessages = [
@@ -53,9 +40,11 @@ function Sableheim() {
     "Our halls stand eternal!",
   ];
 
-  const nextDialog1 = () => {
+  const handleDialogNext = () => {
     if (dialogIndex < dialogue1.length - 1) {
       setDialogIndex(dialogIndex + 1);
+    } else {
+      navigate("/Battlehome");
     }
   };
 
@@ -67,17 +56,17 @@ function Sableheim() {
   };
 
   return (
-    <>
-      <div id="Sableheimout">
-        <div className="sparkle"></div>
-        <div className="bressone-battle-container">
-          <DialogBox
-            {...dialogue1[dialogIndex]}
-            onNext={nextDialog1}
-            isLast={dialogIndex === dialogue1.length - 1}
-          />
-        </div>
-        <div id="leftnav2">
+    <div id="Sableheimout">
+      <div className="sparkle"></div>
+      <div className="sable">
+        <DialogBox
+          {...dialogue1[dialogIndex]}
+          onNext={handleDialogNext}
+          isLast={dialogIndex === dialogue1.length - 1}
+        />
+      </div>
+
+      {/* <div id="leftnav2">
           <ul>
             <li>
               <button
@@ -86,13 +75,13 @@ function Sableheim() {
               >
                 Fairy Conclave
               </button>
-            </li>
-            {/* <li>
+            </li> */}
+      {/* <li>
               <button onClick={() => navigate("/Shop")} className="lnbutt2">
                 Go To Shop
               </button>
             </li> */}
-            <li>
+      {/* <li>
               <button
                 onClick={() => {
                   setMenuType("team");
@@ -164,8 +153,8 @@ function Sableheim() {
           <h1 id="sableheimtitle">Sableheim</h1>
           <h3 id="sableheimsubtitle">Fairy Kingdom</h3>
         </div>
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 }
 

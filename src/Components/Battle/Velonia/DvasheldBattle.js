@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import WWEnemies from "../Velonia/WWEnemies";
+import DvasheldEnemies from "../Velonia/DvasheldEnemies";
 import BattleManager from "../BattleManager";
 import { useNavigate } from "react-router-dom";
 import "../Battle.css";
@@ -14,15 +14,15 @@ function DvasheldBattle() {
   const [dialogIndex2, setDialogIndex2] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   const [battleResult, setBattleResult] = useState(null);
-  const [showArrow, setShowArrow] = useState(false);
+
   const navigate = useNavigate();
-  const { setMap2Trigger } = useParty();
+  const { setMap3Trigger } = useParty();
 
   const heroData = JSON.parse(localStorage.getItem("finalCharacter"));
   const mainName = heroData?.Name || "Hero";
 
-  const westernWoodFirstBattleDone =
-    JSON.parse(localStorage.getItem("westernWoodFirstBattleDone")) || false;
+  const dvasheldFirstBattleDone =
+    JSON.parse(localStorage.getItem("dvasheldFirstBattleDone")) || false;
 
   //   useEffect(() => {
   //     if (
@@ -37,7 +37,7 @@ function DvasheldBattle() {
   //   }, [phase, dialogIndex2]); // ✅ use dialogIndex2, not dialogIndex
 
   // ---- Dialogues ----
-  const dialogue1 = !westernWoodFirstBattleDone
+  const dialogue1 = !dvasheldFirstBattleDone
     ? [
         {
           text: "...please aid us Hero!",
@@ -101,9 +101,6 @@ function DvasheldBattle() {
 
       // 👇 Check if THIS line has "Arrow" when pressing Next
       if (dialogue2[dialogIndex2 + 1]?.text.includes("Arrow")) {
-        setShowArrow(true);
-
-        setTimeout(() => setShowArrow(false), 1200);
       }
     } else {
       prepareBattle();
@@ -122,15 +119,15 @@ function DvasheldBattle() {
   const prepareBattle = () => {
     let generatedEnemies;
 
-    if (!westernWoodFirstBattleDone) {
+    if (!dvasheldFirstBattleDone) {
       // Special first battle
       generatedEnemies = [
-        WWEnemies.goblinKing(),
-        ...WWEnemies.goblins(5), // 5 goblins
+        DvasheldEnemies.GiantSpider(),
+        ...DvasheldEnemies.Spiders(5), // 5 goblins
       ];
     } else {
       // Regular random battle
-      generatedEnemies = WWEnemies.randomEnemies(3);
+      generatedEnemies = DvasheldEnemies.randomEnemies(3);
     }
 
     setEnemies(generatedEnemies);
@@ -146,18 +143,25 @@ function DvasheldBattle() {
     }, 800);
   };
 
-  const returnToTown = () => navigate("/WesternWood");
+  const returnToTown = () => navigate("/Dvasheld");
 
   // ---- Battle Completion ----
-  const WesternWoodBattleComplete = (didWin) => {
+  const dvasheldBattleComplete = (didWin) => {
     setBattleResult(didWin ? "victory" : "defeat");
 
-    if (!westernWoodFirstBattleDone && didWin) {
-      localStorage.setItem("westernWoodFirstBattleDone", true);
-      localStorage.setItem(
-        "elvenEmblem",
-        JSON.stringify({ name: "Elven Emblem", type: "key item" })
-      );
+    if (!dvasheldFirstBattleDone && didWin) {
+      localStorage.setItem("dvasheldFirstBattleDone", "true");
+
+      const items = JSON.parse(localStorage.getItem("items") || "[]");
+
+      items.push({
+        name: "Mountain Pass Key",
+        description: "Allows travel through the Mountain Pass to Sableheim.",
+        type: "key",
+        image: "/DMGK.png",
+      });
+
+      localStorage.setItem("items", JSON.stringify(items));
 
       // Move to dialogue3 after first battle
       setPhase("dialog3");
@@ -171,7 +175,7 @@ function DvasheldBattle() {
     <div>
       {/* Dialog 1 */}
       {phase === "dialog1" && !transitioning && (
-        <div id="WWDialog1">
+        <div id="DvasDi1">
           <DialogBox
             {...dialogue1[dialogIndex]}
             onNext={nextDialog1}
@@ -182,14 +186,7 @@ function DvasheldBattle() {
 
       {/* Dialog 2 */}
       {phase === "dialog2" && !transitioning && (
-        <div id="WWDialog2">
-          <div style={{ position: "relative", overflow: "hidden" }}>
-            {/* existing code */}
-
-            {showArrow && (
-              <img src="/arrow.png" alt="arrow" className="arrow" />
-            )}
-          </div>
+        <div id="DvasDi2">
           <DialogBox
             {...dialogue2[dialogIndex2]}
             onNext={nextDialog2}
@@ -244,13 +241,13 @@ function DvasheldBattle() {
       {/* Battlefield */}
       {phase === "battle" && !transitioning && (
         <div className="WWbattlefield">
-          <h1 id="BBTitle">Woodlands</h1>
+          <h1 id="BBTitle">Caverns</h1>
           <BattleManager
             enemies={enemies}
             onBattleEnd={(didWin) => {
-              WesternWoodBattleComplete(didWin);
-              if (didWin && !westernWoodFirstBattleDone) {
-                setMap2Trigger(true); // 🔥 unlock Summoner class after first victory
+              dvasheldBattleComplete(didWin);
+              if (didWin && !dvasheldFirstBattleDone) {
+                setMap3Trigger(true); // 🔥 unlock Summoner class after first victory
               }
             }}
           />

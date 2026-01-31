@@ -116,6 +116,14 @@ function Dvasheld() {
                   Battle
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => navigate("/BattleHome")}
+                  className="lnbutt2"
+                >
+                  Velonia Map
+                </button>
+              </li>
             </ul>
 
             {showMenu && (

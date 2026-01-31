@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./Items.css";
 
 function Items() {
-  const [items, setItems] = useState([]);
+  const [keyItems, setKeyItems] = useState([]);
+  const [consumables, setConsumables] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,37 +52,69 @@ function Items() {
       ...filteredConsumables.map(parseItem),
     ];
     console.log(parsedItems);
-    setItems(parsedItems);
+    const parsedKeyItems = filteredKeyItems.map(parseItem);
+    const parsedConsumables = filteredConsumables.map(parseItem);
+
+    setKeyItems(parsedKeyItems);
+    setConsumables(parsedConsumables);
   }, []);
 
   return (
     <div id="item">
-      <div id="itemTitle">Items</div>
+      <h1 id="itemTitle">Inventory</h1>
 
-      <ul id="itemList">
-        {items.length > 0 ? (
-          items.map((item) => (
-            <li key={item.key} id="AttributeListItems" className="item-entry">
-              <button className="itembuttons">
-                <img
-                  src={item.image}
-                  // alt={item.name}
-                  className="item-image"
-                  // style={{ width: "64px", height: "64px", marginRight: "10px" }}
-                />
-                <div>
-                  <strong>{item.name}</strong> <em>({item.category})</em>
-                  <p>{item.description}</p>
-                </div>
-              </button>
-            </li>
-          ))
-        ) : (
-          <li>No items found.</li>
-        )}
-      </ul>
+      <div className="items-grid">
+        {/* LEFT COLUMN — KEY ITEMS */}
+        <div className="items-column">
+          <h2 className="column-title">Key Items</h2>
 
-      <button id="itemgoback" onClick={() => navigate("/Character")}>
+          <ul className="itemList">
+            {keyItems.length > 0 ? (
+              keyItems.map((item) => (
+                <li key={item.key} className="item-entry">
+                  <div className="item-card key-item">
+                    <img src={item.image} className="item-image" />
+                    <div>
+                      <strong>{item.name}</strong>
+                      <p>{item.description}</p>
+                    </div>
+                  </div>
+                </li>
+              ))
+            ) : (
+              <li className="empty">No key items</li>
+            )}
+          </ul>
+        </div>
+
+        {/* RIGHT COLUMN — CONSUMABLES */}
+        <div className="items-column">
+          <h2 className="column-title">Items</h2>
+
+          <ul className="itemList">
+            {consumables.length > 0 ? (
+              consumables.map((item) => (
+                <li key={item.key} className="item-entry">
+                  <button className="item-card consumable">
+                    <img src={item.image} className="item-image" />
+                    <div>
+                      <strong>{item.name}</strong>
+                      <p>{item.description}</p>
+                    </div>
+                  </button>
+                </li>
+              ))
+            ) : (
+              <li className="empty">No consumables</li>
+            )}
+          </ul>
+          <button id="itemgoback" onClick={() => navigate("/Party")}>
+            View Team
+          </button>
+        </div>
+      </div>
+
+      <button id="itemgoback" onClick={() => navigate("/OnlyCharacter")}>
         View Character
       </button>
     </div>

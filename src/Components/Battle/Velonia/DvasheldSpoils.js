@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParty } from "../../Context/PartyContext";
 
-function BressoneSpoils() {
+function DvasheldSpoils() {
   const { party, setParty } = useParty();
   const [expGained, setExpGained] = useState(0);
   const [itemDropped, setItemDropped] = useState(null);
@@ -23,22 +23,18 @@ function BressoneSpoils() {
 
     // 3️⃣ 20% chance for a random consumable item drop
     if (Math.random() < 0.2) {
-      const dropKey = "potion";
-
       const drop = {
-        name: "Potion",
-        description: "Restores 25 HP.",
-        image: "/potion.png",
-        effect: {
-          type: "heal",
-          amount: 25,
-        },
+        name: "Healing Herb",
+        description: "Restores 25 HP when used.",
+        type: "consumable",
       };
 
       setItemDropped(drop);
 
       // Add to localStorage inventory
-      localStorage.setItem(dropKey, JSON.stringify(drop));
+      const items = JSON.parse(localStorage.getItem("items") || "[]");
+      items.push(drop);
+      localStorage.setItem("items", JSON.stringify(items));
     }
   }, []);
 
@@ -60,4 +56,4 @@ function BressoneSpoils() {
   );
 }
 
-export default BressoneSpoils;
+export default DvasheldSpoils;

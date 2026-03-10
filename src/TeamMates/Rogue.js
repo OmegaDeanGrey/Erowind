@@ -10,6 +10,7 @@ function Rogue() {
   const { party, addToParty } = useParty();
   const isPartyFull = party.length >= 5;
   const [rogue, setRogue] = useState("");
+  const [evolute, setEvolute] = useState(false);
 
   const generateNewRogue = () => {
     const names = [
@@ -47,6 +48,10 @@ function Rogue() {
       level: 1,
       BG: rogueBase.BG,
       Icon: rogueBase.Icon,
+      Experience: 0,
+      Evolution: 10,
+      evolved: "Knave",
+      ability: "Steal",
     };
   };
 

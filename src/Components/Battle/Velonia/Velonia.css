@@ -197,7 +197,7 @@
   border-top-left-radius: 0px;
 }
 
-#bbreturn {
+.bbreturn {
   font-size: 15px;
   font-weight: bolder;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
@@ -422,9 +422,51 @@
   align-items: center;
 }
 
+#DDialog1 {
+  background-image: url("/public/DDialog1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh; /* or some fixed height like 600px */
+  display: flex;
+  align-items: center;
+}
+
+#DDialog2 {
+  background-image: url("/public/WWDialog1BG.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh; /* or some fixed height like 600px */
+  display: flex;
+  align-items: center;
+}
+
 #Sableheimout {
   background-image: url("/public/Sableheim.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+#DBOut {
+  background-image: url("/public/clash.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 89vh;
+  margin-top: -79px;
+}
+
+.Dbattlefield {
+  background-image: url("/public/SpiderMine.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh; /* or some fixed height like 600px */
+  display: flex;
+  align-items: center;
 }

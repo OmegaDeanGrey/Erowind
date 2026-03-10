@@ -170,7 +170,7 @@ function Navbar() {
         <Route path="/BattleField" element={<BattleField />} />
         <Route path="/BressoneBattle" element={<BressoneBattle />} />
         <Route path="/WesternWoodBattle" element={<WesternWoodBattle />} />
-        <Route path="/DvasheldBattle" element={<WesternWoodBattle />} />
+        <Route path="/DvasheldBattle" element={<DvasheldBattle />} />
         <Route path="/Pantheon" element={<Pantheon />} />
       </Routes>
     </>

@@ -17,6 +17,7 @@ import {
   werewolfBeastAttackAction,
   heroAction,
 } from "./BattleActions";
+import "./Battle.css";
 
 function BattleManager({ enemies, onBattleEnd }) {
   const { party, setParty } = useParty();
@@ -415,7 +416,7 @@ function BattleManager({ enemies, onBattleEnd }) {
         animations={animations}
         activeActorId={activeActorId}
       />
-      <button onClick={() => setPaused(!paused)}>
+      <button className="pausebutton" onClick={() => setPaused(!paused)}>
         {paused ? "Resume Battle" : "Pause Battle"}
       </button>
 

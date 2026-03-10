@@ -361,6 +361,10 @@
 }
 
 .battle-intro-modal {
+  background-image: url("/public/WWB.JPG");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: white;
   font-size: 26px;
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -673,4 +677,15 @@
   height: 100%;
   background: linear-gradient(90deg, #ff4d4d, #ff9900);
   transition: width 0.4s ease-out;
+}
+
+.pausebutton {
+  border-radius: 20px;
+  font-size: 19px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: bold;
+  padding: 9px;
+  border: 4px grey solid;
+  color: lightgrey;
+  background-color: rgba(0, 0, 0, 0.643);
 }

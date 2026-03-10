@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useParty } from "../Components/Context/PartyContext";
-import baseStatsByClass from "../Components/Character/BaseStats";
+import { useParty } from "../../Components/Context/PartyContext";
+import baseStatsByClass from "../../Components/Character/BaseStats";
 
 function Knight() {
   const [showOverlay, setShowOverlay] = useState(false);
@@ -64,8 +64,8 @@ function Knight() {
       Icon: KnightBase.Icon,
       Experience: 0,
       Evolution: 10,
-      evolved: "Cavalry",
-      ability: "Slash",
+      evolved: "Paladin",
+      ability: "Holy Strike",
     };
   };
 

@@ -244,7 +244,7 @@ function BressoneBattle() {
               enemies={enemies}
               onBattleEnd={BressoneBattleComplete}
             />
-            <button onClick={returnToTown} id="bbreturn">
+            <button onClick={returnToTown} classname="bbreturn">
               Return to Town
             </button>
           </div>

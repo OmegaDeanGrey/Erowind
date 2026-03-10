@@ -65,7 +65,7 @@ function Fighter() {
       Experience: 0,
       Evolution: 10,
       evolved: "Cavalry",
-      ability: "Slash",
+      ability: "Joust",
     };
   };
 
